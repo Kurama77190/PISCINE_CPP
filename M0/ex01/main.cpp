@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:53:49 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/29 22:06:22 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/01/31 19:12:41 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 int main( void )
 {
 	std::string prompt;
-	Contact instance1;
-	Phonebook istance2;
+	Phonebook instance;
 
 	while(1)
 	{
+	if (std::cin.eof())
+		break ;
 		std::cout << "$PHONEBOOK: ";
 		getline(std::cin, prompt);
 		if (prompt == "EXIT")
@@ -31,12 +32,14 @@ int main( void )
 		}
 		if (prompt == "ADD")
 		{
-			//void
+			if (instance.setNewContact() == ERROR)
+				break ;
 		}
 		if (prompt == "SEARCH")
 		{
-			instance1.displayContact();
-			break ;
+			instance.getListcontact();
+			if (instance.moreDetails() == ERROR)
+				break ;
 		}
 	}
 	return (0);

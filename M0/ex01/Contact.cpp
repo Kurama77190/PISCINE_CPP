@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:04 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/29 22:10:28 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/01/31 19:06:42 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 #include <iomanip>
 #include <string>
 
-Contact::Contact( void ) : _index(1), _firstname("SAMY"), _lastname("BENTAYEB"), _nickname("ANNULLEDMITE"), \
-						   _phone_number("0668343719"), _darkest_secret("IM A ROBOT")
+
+Contact::Contact( void ) : _index(0), _firstname(""), _lastname(""), _nickname(""), \
+						   _phoneNumber(""), _darkestSecret("")
 {
 	return ;
 }
@@ -26,21 +27,84 @@ Contact::~Contact( void )
 	return ;
 }
 
-std::string	_resize_str( std::string str )
+std::string Contact::getFirstname( int flag ) const
 {
-	if (str.size() > 10)
-	{
-		str.resize(9);
-		str += ".";
-	}
-	return (str);
+	if (flag == 1)
+		return (this->_Resized_firstname);
+	return (this->_firstname);
 }
 
-void Contact::displayContact() const
+std::string Contact::getLastname( int flag ) const
 {
-	
-	std::cout	<< std::setw(10) << _resize_str(this->_firstname) << "|"
-				<< std::setw(10) << _resize_str(this->_lastname) << "|"
-				<< std::setw(10) << _resize_str(this->_nickname) << "|"
-				<< std::setw(10) << _resize_str(this->_phone_number) << "|" << std::endl;
+	if (flag == 1)
+		return (this->_Resized_lastname);
+	return (this->_lastname);
+}
+
+std::string Contact::getNickname( int flag ) const
+{
+	if (flag == 1)
+		return (this->_Resized_nickname);
+	return (this->_nickname);
+}
+
+std::string Contact::getPhoneNumber( int flag ) const
+{
+	if (flag == 1)
+		return (this->_Resized_phoneNumber);
+	return (this->_phoneNumber);
+}
+
+std::string Contact::getDarkestSecret( int flag ) const
+{
+	if (flag == 1)
+		return (this->_Resized_DarkestSecret);
+	return (this->_darkestSecret);
+}
+
+
+void Contact::getContact( void ) const
+{
+	std::cout	<< std::setw(10) << this->_index << "|"
+				<< std::setw(10) << getFirstname(1) << "|"
+				<< std::setw(10) << getLastname(1) << "|"
+				<< std::setw(10) << getNickname(1) << "|" << std::endl;
+}
+
+void	Contact::getDetailsContact( void ) const
+{
+	std::cout	<< "details:\n"
+				<< getFirstname(0) << "\n"
+				<< getLastname(0) << "\n"
+				<< getNickname(0) << "\n"
+				<< getPhoneNumber(0) << "\n"
+				<< getDarkestSecret(0) << std::endl;
+}
+
+void	Contact::setContact( std::string data, std::string varName, int	i)
+{
+	if (i == 8)
+		i = 0;
+	if (varName == "firstname")
+		this->_firstname = data;
+	if (varName == "lastname")
+		this->_lastname = data;
+	if (varName == "nickname")
+		this->_nickname = data;
+	if (varName == "phonenumber")
+		this->_phoneNumber = data;
+	if (varName == "darkestsecret")
+		this->_darkestSecret = data;
+	if (varName == "resized_firstname")
+		this->_Resized_firstname = data;
+	if (varName == "resized_lastname")
+		this->_Resized_lastname = data;
+	if (varName == "resized_nickname")
+		this->_Resized_nickname = data;
+	if (varName == "resized_phonenumber")
+		this->_Resized_phoneNumber = data;
+	if (varName == "resized_darkestsecret")
+		this->_Resized_DarkestSecret = data;
+	this->_index = i;
+	return ;
 }

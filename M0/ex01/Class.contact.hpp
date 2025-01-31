@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:31:39 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/29 22:06:02 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:24:46 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ public:
 
 	Contact( void );
 	~Contact( void );
-	
-	void	displayContact() const;
+
+	std::string	getFirstname( int flag ) const;
+	std::string getLastname( int flag ) const;
+	std::string getNickname( int flag ) const;
+	std::string getPhoneNumber( int flag ) const;
+	std::string getDarkestSecret( int flag ) const;
+
+	void		setContact( std::string data, std::string varName, int i);
+	void		getContact( void ) const;
+	void		getDetailsContact( void ) const;
 
 private:
 
@@ -29,9 +37,14 @@ private:
 	std::string _firstname;
 	std::string	_lastname;
 	std::string _nickname;
-	std::string _phone_number;
-	std::string _darkest_secret;
-	std::string	_rezise_str( std::string str );
+	std::string _phoneNumber;
+	std::string _darkestSecret;
+
+	std::string	_Resized_firstname;
+	std::string	_Resized_lastname;
+	std::string	_Resized_nickname;
+	std::string	_Resized_phoneNumber;
+	std::string	_Resized_DarkestSecret;
 };
 
 #endif
