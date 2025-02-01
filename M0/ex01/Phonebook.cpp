@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:10 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/31 19:15:39 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/01 06:14:25 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,14 @@ void	Phonebook::getListcontact( void ) const
 {
 	std::string prompt;
 	
-	std::cout	<< std::setw(10) << "INDEX" << "|"
+	std::cout << "+-------------------------------------------+\n";
+    std::cout << "|                PHONEBOOK                  |\n";
+    std::cout << "+----------+----------+----------+----------+\n";
+	std::cout	<< "|" << std::setw(10) << "INDEX" << "|"
 				<< std::setw(10) << "FIRSTNAME" << "|"
 				<< std::setw(10) << "LASTNAME" << "|"
 				<< std::setw(10) << "NICKNAME" << "|" << std::endl;
+				std::cout << "+----------+----------+----------+----------+\n";
 	for (int i = 0; i < this->_size_contact; i++)
 	{
 		if (this->_size_contact == 0)

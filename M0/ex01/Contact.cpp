@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:04 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/31 19:06:42 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/01 06:23:02 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,23 @@ std::string Contact::getDarkestSecret( int flag ) const
 
 void Contact::getContact( void ) const
 {
-	std::cout	<< std::setw(10) << this->_index << "|"
+	std::cout	<< "|" << std::setw(10) << this->_index << "|"
 				<< std::setw(10) << getFirstname(1) << "|"
 				<< std::setw(10) << getLastname(1) << "|"
-				<< std::setw(10) << getNickname(1) << "|" << std::endl;
+				<< std::setw(10) << getNickname(1) << "|\n"
+				<< "+----------+----------+----------+----------+" << std::endl;
 }
 
 void	Contact::getDetailsContact( void ) const
 {
-	std::cout	<< "details:\n"
-				<< getFirstname(0) << "\n"
-				<< getLastname(0) << "\n"
-				<< getNickname(0) << "\n"
-				<< getPhoneNumber(0) << "\n"
-				<< getDarkestSecret(0) << std::endl;
-}
+	std::cout	<< "\n\ndetails:\n"
+				<< "Firstname: " << getFirstname(0) << "\n"
+				<< "Lastname: " << getLastname(0) << "\n"
+				<< "Nickname" << getNickname(0) << "\n"
+				<< "Phone number: " << getPhoneNumber(0) << "\n"
+				<< "Darkest Secret : " << getDarkestSecret(0) << std::endl;
+				
+}	
 
 void	Contact::setContact( std::string data, std::string varName, int	i)
 {
