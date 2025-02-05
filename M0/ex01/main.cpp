@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:53:49 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/01/31 19:12:41 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:40:56 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ int main( void )
 		}
 		if (prompt == "SEARCH")
 		{
-			instance.getListcontact();
-			if (instance.moreDetails() == ERROR)
-				break ;
+			if (instance.getListcontact() == SUCCESS)
+			{
+				if (instance.moreDetails() == ERROR)
+					break ;
+			}
 		}
 	}
 	return (0);

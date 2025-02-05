@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:10 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/01 06:14:25 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:57:24 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		Phonebook::moreDetails( void )
 			getline(std::cin, prompt);
 			if (std::cin.eof())
 				return (ERROR);
-			if (std::stoi(prompt) < 0 || std::stoi(prompt) > 8 || std::stoi(prompt) >= this->_size_contact)
+			if (prompt.empty() || prompt.size() > 2 || std::stoi(prompt) < 0 \
+				|| std::stoi(prompt) > 8 || std::stoi(prompt) > this->_size_contact - 1)
 			{
 				std::cout << "Invalid index." << std::endl;
 				return (SUCCESS);
@@ -56,10 +57,15 @@ int		Phonebook::moreDetails( void )
 	return (SUCCESS);
 }
 
-void	Phonebook::getListcontact( void ) const
+int	Phonebook::getListcontact( void ) const
 {
 	std::string prompt;
 	
+	if (this->_size_contact == 0)
+		{
+			std::cout << "List Empty." << std::endl;
+			return (ERROR);
+		}
 	std::cout << "+-------------------------------------------+\n";
     std::cout << "|                PHONEBOOK                  |\n";
     std::cout << "+----------+----------+----------+----------+\n";
@@ -70,15 +76,135 @@ void	Phonebook::getListcontact( void ) const
 				std::cout << "+----------+----------+----------+----------+\n";
 	for (int i = 0; i < this->_size_contact; i++)
 	{
-		if (this->_size_contact == 0)
-		{
-			std::cout << "List Empty please." << std::endl;
-			return ;
-		}
 		this->_listContact[i].getContact();
 	}
+	return (SUCCESS);
 }
 
+int	Phonebook::_setFirstName( void )
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "$PHONEBOOK: Enter Firstname : ";
+		getline(std::cin, prompt);
+		if (std::cin.eof())
+			return (ERROR);
+		if (prompt.empty())
+		{
+			std::cout << "Firstname is empty. Try again please." << std::endl;
+			continue ;
+		}
+		if (_check_input(prompt) == 1)
+		{
+			std::cout << "Firstname is invalid. Try again please." << std::endl;
+			continue ;
+		}
+		this->_listContact[_index].setContact(prompt, "firstname", 0);
+		this->_listContact[_index].setContact(_resize_str(prompt), "resized_firstname", 0);
+		break ;
+	}
+	return (SUCCESS);
+}
+
+int	Phonebook::_setLastName( void )
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "$PHONEBOOK: Enter Lastname : ";
+		getline(std::cin, prompt);
+		if (std::cin.eof())
+			return (ERROR);
+		if (prompt.empty())
+		{
+			std::cout << "Lastname is empty. Try again please." << std::endl;
+			continue ;
+		}
+		if (_check_input(prompt) == 1)
+		{
+			std::cout << "Lastname is invalid. Try again please." << std::endl;
+			continue ;
+		}
+		this->_listContact[_index].setContact(prompt, "lastname", 0);
+		this->_listContact[_index].setContact(_resize_str(prompt), "resized_lastname", 0);
+		break ;	
+	}
+	return (SUCCESS);
+}
+
+int	Phonebook::_setNickname( void )
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "$PHONEBOOK: Enter Nickname : ";
+		getline(std::cin, prompt);
+		if (std::cin.eof())
+			return (ERROR);
+		if (prompt.empty())
+		{
+			std::cout << "Nickname is empty. Try again please." << std::endl;
+			continue ;
+		}
+		this->_listContact[_index].setContact(prompt, "nickname", 0);
+		this->_listContact[_index].setContact(_resize_str(prompt), "resized_nickname", 0);
+		break ;	
+	}
+	return (SUCCESS);
+}
+
+int	Phonebook::_setPhoneNumber( void )
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "$PHONEBOOK: Enter Phone Number : ";
+		getline(std::cin, prompt);
+		if (std::cin.eof())
+			return (ERROR);
+		if (prompt.empty())
+		{
+			std::cout << "Phone Number is empty. Try again please." << std::endl;
+			continue ;
+		}
+		if (_check_input(prompt) == 0)
+		{
+			std::cout << "Phone Number is invalid. Try again please." << std::endl;
+			continue ;
+		}
+		this->_listContact[_index].setContact(prompt, "phonenumber", 0);
+		this->_listContact[_index].setContact(_resize_str(prompt), "resized_phonenumber", 0);
+		break ;	
+	}
+	return (SUCCESS);
+}
+
+int	Phonebook::_setDarkestSecret( void )
+{
+	std::string prompt;
+
+	while (1)
+	{
+		std::cout << "$PHONEBOOK: Enter darkest secret : ";
+		getline(std::cin, prompt);
+		if (std::cin.eof())
+			return (ERROR);
+		if (prompt.empty())
+		{
+			std::cout << "Darkest secret is empty. Try again please." << std::endl;
+			continue ;
+		}
+		this->_listContact[_index].setContact(prompt, "darkestsecret", this->_index);
+		this->_listContact[_index].setContact(_resize_str(prompt), "resized_darkestsecret", this->_index);
+		break ;	
+	}
+	return (SUCCESS);
+}
 
 int	Phonebook::setNewContact( void )
 {
@@ -86,36 +212,17 @@ int	Phonebook::setNewContact( void )
 
 	if (this->_index == 8)
 		this->_index = 0;
-	std::cout << "$PHONEBOOK: Enter Firstname : ";
-	getline(std::cin, prompt);
-	if (std::cin.eof())
+	
+	if (this->_setFirstName() == ERROR)
 		return (ERROR);
-	this->_listContact[_index].setContact(prompt, "firstname", 0);
-	this->_listContact[_index].setContact(_resize_str(prompt), "resized_firstname", 0);
-	std::cout << "$PHONEBOOK: Enter Lastname : ";
-	getline(std::cin, prompt);
-	if (std::cin.eof())
+	if (this->_setLastName() == ERROR)
 		return (ERROR);
-	this->_listContact[_index].setContact(prompt, "lastname", 0);
-	this->_listContact[_index].setContact(_resize_str(prompt), "resized_lastname", 0);
-	std::cout << "$PHONEBOOK: Enter Nickname : ";
-	getline(std::cin, prompt);
-	if (std::cin.eof())
+	if (this->_setNickname() == ERROR)
 		return (ERROR);
-	this->_listContact[_index].setContact(prompt, "nickname", 0);
-	this->_listContact[_index].setContact(_resize_str(prompt), "resized_nickname", 0);
-	std::cout << "$PHONEBOOK: Enter Phone Number : ";
-	getline(std::cin, prompt);
-	if (std::cin.eof())
+	if (this->_setPhoneNumber() == ERROR)
 		return (ERROR);
-	this->_listContact[_index].setContact(prompt, "phonenumber", 0);
-	this->_listContact[_index].setContact(_resize_str(prompt), "resized_phonenumber", 0);
-	std::cout << "$PHONEBOOK: Enter Darkest Secret : ";
-	getline(std::cin, prompt);
-	if (std::cin.eof())
+	if (this->_setDarkestSecret() == ERROR)
 		return (ERROR);
-	this->_listContact[_index].setContact(prompt, "darkestsecret", this->_index);
-	this->_listContact[_index].setContact(_resize_str(prompt), "resized_darkestsecret", this->_index);
 	if (_size_contact < 8)
 		_size_contact += 1;
 	this->_index++;
@@ -130,4 +237,16 @@ std::string	Phonebook::_resize_str( std::string str )
 		str += ".";
 	}
 	return (str);
+}
+
+int	Phonebook::_check_input( std::string prompt)
+{
+	for (int i = 0; i < prompt.size(); i++)
+	{
+		if (std::isdigit(prompt[i]))
+		{
+			return (1);
+		}
+	}
+	return (0);
 }
