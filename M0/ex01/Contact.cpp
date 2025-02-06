@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:04 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/05 18:51:07 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:41:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void Contact::getContact( void ) const
 
 void	Contact::getDetailsContact( void ) const
 {
-	std::cout	<< "\n\ndetails:\n"
+	std::cout	<< "\n\ndetails of [" << getFirstname(0) << "]\n\n"
 				<< "Firstname: " << getFirstname(0) << "\n"
 				<< "Lastname: " << getLastname(0) << "\n"
 				<< "Nickname: " << getNickname(0) << "\n"
 				<< "Phone number: " << getPhoneNumber(0) << "\n"
-				<< "Darkest Secret : " << getDarkestSecret(0) << std::endl;
+				<< "Darkest Secret : " << getDarkestSecret(0) << "\n" << std::endl;
 				
 }	
 

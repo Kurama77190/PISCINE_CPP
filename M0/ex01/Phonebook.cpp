@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:44:10 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/05 18:57:24 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:37:11 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	Phonebook::_setFirstName( void )
 			std::cout << "Firstname is empty. Try again please." << std::endl;
 			continue ;
 		}
-		if (_check_input(prompt) == 1)
+		if (!_isAlpha(prompt))
 		{
 			std::cout << "Firstname is invalid. Try again please." << std::endl;
 			continue ;
@@ -123,7 +123,7 @@ int	Phonebook::_setLastName( void )
 			std::cout << "Lastname is empty. Try again please." << std::endl;
 			continue ;
 		}
-		if (_check_input(prompt) == 1)
+		if (!_isAlpha(prompt))
 		{
 			std::cout << "Lastname is invalid. Try again please." << std::endl;
 			continue ;
@@ -172,7 +172,7 @@ int	Phonebook::_setPhoneNumber( void )
 			std::cout << "Phone Number is empty. Try again please." << std::endl;
 			continue ;
 		}
-		if (_check_input(prompt) == 0)
+		if (_isNumber(prompt) == false)
 		{
 			std::cout << "Phone Number is invalid. Try again please." << std::endl;
 			continue ;
@@ -239,14 +239,32 @@ std::string	Phonebook::_resize_str( std::string str )
 	return (str);
 }
 
-int	Phonebook::_check_input( std::string prompt)
+bool	Phonebook::_isNumber( std::string prompt )
 {
+	bool	is_digit = true;
+
 	for (int i = 0; i < prompt.size(); i++)
 	{
-		if (std::isdigit(prompt[i]))
+		if (!std::isdigit((char)prompt[i]) && !std::isspace((char)prompt[i]))
 		{
-			return (1);
+			is_digit = false;
+			return (is_digit);
 		}
 	}
-	return (0);
+	return (is_digit);
+}
+
+bool	Phonebook::_isAlpha( std::string prompt )
+{
+	bool	is_digit = true;
+
+	for (int i = 0; i < prompt.size(); i++)
+	{
+		if (!std::isalpha((char)prompt[i]) && !std::isspace((char)prompt[i]))
+		{
+			is_digit = false;
+			return (is_digit);
+		}
+	}
+	return (is_digit);
 }
