@@ -6,13 +6,13 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 03:24:33 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/08 04:10:10 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:21:58 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB( std::string name ): _name(name){}
+HumanB::HumanB( std::string name ): _name(name), _weapon(NULL){}
 
 HumanB::~HumanB( void ){}
 
