@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:22:16 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/07 16:02:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:56:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # include <string>
 # include <iostream>
 
-
-class Zombie{
+class Zombie {
 	
 	public:
 
