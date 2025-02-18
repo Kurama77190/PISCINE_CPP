@@ -6,7 +6,7 @@
 #    By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:38:08 by sben-tay          #+#    #+#              #
-#    Updated: 2025/02/11 18:23:14 by sben-tay         ###   ########.fr        #
+#    Updated: 2025/02/18 16:07:39 by sben-tay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = c++
 CLFAGS = -Wall -Wextra -Werror -std=c++98
 CPPFLAGS = -I.
 
-SRCS := main.cpp
+SRCS := main.cpp ft_replace.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

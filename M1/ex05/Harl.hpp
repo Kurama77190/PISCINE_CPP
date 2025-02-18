@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:50 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/14 16:09:19 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:15:13 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 
 
-class Harl{
+class Harl {
 
 public:
 
@@ -35,6 +35,5 @@ private:
 	void	error( void );
 
 };
-
 
 #endif

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ft_replace.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 16:48:51 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/18 16:13:27 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/18 15:53:44 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/18 16:11:09 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#ifndef FT_REPLACE_CPP
+# define FT_REPLACE_CPP
 
+# include <string>
+# include <iostream>
+# include <fstream>
 
-int main( void )
-{
-	Harl instance;
+int	ft_replace(char *filename_, char *s1_, char *s2_);
 
-	instance.complain("DEBUG");
-	instance.complain("INFO");
-	instance.complain("WARNING");
-	instance.complain("ERROR");
-}
+#endif
