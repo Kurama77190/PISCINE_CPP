@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:41:38 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/20 18:53:23 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:44:37 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Fixed::Fixed( const float nb )
 Fixed::Fixed( const int nb )
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_rawBits = nb << (1 * Fixed::_fractBits);
+	this->_rawBits = nb << Fixed::_fractBits;
 }
 
 Fixed::Fixed( Fixed const & src )
@@ -48,44 +48,32 @@ Fixed &	Fixed::operator=( Fixed const & rhs )
 
 float	Fixed::toFloat( void ) const
 {
-	return (roundf( this->_rawBits / (1 >> Fixed::_fractBits)));
+	return (static_cast<float>(this->_rawBits) / (1 << Fixed::_fractBits));
 }
 
 int		Fixed::toInt( void ) const
 {
-	return (this->_rawBits >> (1 * Fixed::_fractBits))
+	return (this->_rawBits >> Fixed::_fractBits);
 }
 
 
 std::ostream & operator<<( std::ostream & o, Fixed const & rhs)
 {
-	// regarde la video de l intra;
+	o << rhs.toFloat();
+	return (o);
+}
+
+int	Fixed::getRawBits( void ) const
+{
+	return (this->_rawBits);
+}
+
+void Fixed::setRawBits( int const raw )
+{
+	this->_rawBits = raw;
 }
 
 Fixed::~Fixed( void )
 {
 	std::cout << "Destructor called" << std::endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// int	Fixed::getRawBits( void ) const
-// {
-// 	std::cout << "getRawBits member function called" << std::endl;
-// 	return (this->_rawBits);
-// }
-
-// void Fixed::setRawBits( int const raw )
-// {
-// 	Fixed::_rawBits = raw;
-// }

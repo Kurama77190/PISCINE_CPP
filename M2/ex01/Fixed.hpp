@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:41:35 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/20 18:46:57 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:42:10 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ public :
 			~Fixed( void ); // Canonical
 
 	int		getRawBits( void ) const;
-	// void	setRawBits( int const raw );
+	void	setRawBits( int const raw );
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
-	
 	Fixed &	operator=( Fixed const & rhs ); // Canonical
 
 private :
