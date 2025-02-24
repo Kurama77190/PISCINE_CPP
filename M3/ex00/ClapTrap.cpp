@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:13:35 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/24 18:17:51 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:26:00 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ ClapTrap::ClapTrap( void ): _name("samy"), _hitPoints(10), _energyPoints(10), _a
 	std::cout << "Constructor default called." << std::endl;
 }
 
-ClapTrap::ClapTrap ( std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(10)
+ClapTrap::ClapTrap ( std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << "Constructor ad-hoc polymorphisme called." << std::endl;
 }
@@ -69,7 +69,7 @@ void			ClapTrap::takeDamage(unsigned int amount)
 	if (this->_energyPoints == 0 || this->_hitPoints == 0)
 	{
 		if (_hitPoints == 0)
-			std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
+			std::cout << "ClapThe following member functions are present and function as specified:Trap " << this->_name << " is dead" << std::endl;
 		else
 			std::cout << "ClapTrap " << this->_name << " doesn't have energy points" << std::endl;
 		return ;
