@@ -6,11 +6,11 @@
 #    By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/21 18:05:26 by sben-tay          #+#    #+#              #
-#    Updated: 2025/02/24 19:27:16 by sben-tay         ###   ########.fr        #
+#    Updated: 2025/02/25 18:25:46 by sben-tay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap
+NAME = ScavTrap
 
 CC = c++
 CLFAGS = -Wall -Wextra -Werror -std=c++98

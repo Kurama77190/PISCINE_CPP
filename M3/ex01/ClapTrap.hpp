@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:06:15 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/24 19:28:37 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:35:57 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <string>
 # include <iostream>
 # include <limits>
-
-# include "ScavTrap.hpp"
 
 class ClapTrap {
 
@@ -37,10 +35,8 @@ public:
 	std::string		getName( void );
 
 	ClapTrap &	operator=( ClapTrap const & rhs );
-	
-	ScavTrap		x;
 
-private:
+protected:
 
 	std::string		_name;
 	unsigned int	_hitPoints;
