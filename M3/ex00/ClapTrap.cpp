@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:13:35 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/26 01:56:37 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:05:17 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ ClapTrap::ClapTrap( void ): _name("samy"), _hitPoints(10), _energyPoints(10), _a
 
 ClapTrap::ClapTrap ( std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "ClapTrap constructor ad-hoc polymorphisme called." << std::endl;
+	std::cout << "ClapTrap constructor ad-hoc polymorphism called." << std::endl;
 }
 
 ClapTrap::ClapTrap ( ClapTrap const & src)
