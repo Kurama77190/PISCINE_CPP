@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:01:59 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/25 16:36:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:15:29 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ public :
 	~ScavTrap( void );
 	
 	ScavTrap &		operator=( ScavTrap const & rhs );
+
+	void			attack(const std::string& target);
 	void			guardGate( void );
 
 };

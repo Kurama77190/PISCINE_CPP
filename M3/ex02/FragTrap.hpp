@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:01:59 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/25 18:49:43 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:38:31 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ public :
 	~FragTrap( void );
 	
 	FragTrap &		operator=( FragTrap const & rhs );
+
+	void			attack(const std::string& target);
 	void			highFivesGuys( void );
 
 };	

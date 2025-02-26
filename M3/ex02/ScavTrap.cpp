@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:07:30 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/25 18:26:13 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:45:22 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ ScavTrap::ScavTrap( void ): ClapTrap()
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
 }
+
 ScavTrap::ScavTrap( std::string name ): ClapTrap(name)
 {
-	std::cout << "ScavTrap constructor had-hoc polymorphisme called." << std::endl;
+	std::cout << "ScavTrap constructor had-hoc polymorphism called." << std::endl;
 	this->_name = name;
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
@@ -43,9 +44,34 @@ ScavTrap &		ScavTrap::operator=( ScavTrap const & rhs )
 	return (*this);
 }
 
+void			ScavTrap::attack(const std::string& target)
+{
+	if (this->_energyPoints == 0 || this->_hitPoints == 0 || target.empty())
+	{
+		if (this->_hitPoints == 0)
+			std::cout << "ScavTrap " << this->_name << " is dead" << std::endl;
+		else if (target.empty())
+			std::cout << "ScavTrap " << this->_name << " cannot attack anyone" << std::endl;
+		else
+			std::cout << "ScavTrap " << this->_name << " doesn't have energy points" << std::endl;
+		return ;
+	}
+	std::cout << "ScavTrap " << this->_name <<  " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
+	this->_energyPoints--;
+}
+
 void			ScavTrap::guardGate( void )
 {
-	std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
+	if (this->_energyPoints == 0 || this->_hitPoints == 0)
+	{
+		if (_hitPoints == 0)
+			std::cout << "ScavTrap " << this->_name << " is dead" << std::endl;
+		else
+			std::cout << "ScavTrap " << this->_name << " doesn't have energy points" << std::endl;
+		return ;
+	}
+	std::cout << "ScavTrap " << this->_name << " is now in Gate keeper mode." << std::endl;
+	this->_energyPoints--;
 }
 
 ScavTrap::~ScavTrap( void )

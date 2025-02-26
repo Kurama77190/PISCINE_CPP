@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:13:41 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/25 19:06:02 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 02:57:27 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,38 @@
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
-
 int main( void )
 {
-	ClapTrap instance;
-	ScavTrap instance2("Valentin");
+	ScavTrap instance;
+	ClapTrap instance2("Valentin");
 	FragTrap instance3("Diego");
-
-	std::cout << "Samy HitPoints: " << instance.getHitPoints() << std::endl;
-	std::cout << "Valentin HitPoints: " << instance2.getHitPoints() << std::endl;
-	std::cout << "Diego HitPoints: " << instance3.getHitPoints() << std::endl;
-
-	instance.takeDamage(2);
-	instance2.takeDamage(2);
-	instance3.takeDamage(0);
-
-	std::cout << "Samy HitPoints: " << instance.getHitPoints() << std::endl;
-	std::cout << "Valentin HitPoints: " << instance2.getHitPoints() << std::endl;
-	std::cout << "Diego HitPoints: " << instance3.getHitPoints() << std::endl;
 	
-	instance2.guardGate();
+	std::cout << "Hit points of " << instance.getName() << " : " << instance.getHitPoints() << std::endl;
+	std::cout << "Hit points of " << instance2.getName() << " : " << instance2.getHitPoints() << std::endl;
+	std::cout << "Hit points of " << instance3.getName() << " : " << instance3.getHitPoints() << std::endl;
+
+	instance.guardGate();
+
+	instance2.attack(instance.getName());
+	instance.takeDamage(instance2.getAttackDamage());
+
+	instance.attack(instance2.getName());
+	instance2.takeDamage(instance.getAttackDamage());
+
 	instance3.highFivesGuys();
 
+	instance.attack(instance3.getName());
+	instance3.takeDamage(instance.getAttackDamage());
+
+	instance3.attack(instance.getName());
+	instance.takeDamage(instance3.getAttackDamage());
+	
+	std::cout << "Hit points of " << instance.getName() << " : " << instance.getHitPoints() << std::endl;
+	std::cout << "Hit points of " << instance3.getName() << " : " << instance3.getHitPoints() << std::endl;
+	std::cout << "Hit points of " << instance2.getName() << " : " << instance2.getHitPoints() << std::endl;
+	
+	instance2.beRepaired(1);
+	return (0);
 }
 
 
