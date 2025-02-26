@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 18:13:35 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/24 18:26:00 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/26 01:56:37 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 ClapTrap::ClapTrap( void ): _name("samy"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Constructor default called." << std::endl;
+	std::cout << "ClapTrap constructor default called." << std::endl;
 }
 
 ClapTrap::ClapTrap ( std::string name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Constructor ad-hoc polymorphisme called." << std::endl;
+	std::cout << "ClapTrap constructor ad-hoc polymorphisme called." << std::endl;
 }
 
 ClapTrap::ClapTrap ( ClapTrap const & src)
@@ -56,12 +56,18 @@ std::string		ClapTrap::getName( void )
 
 void			ClapTrap::attack(const std::string& target)
 {
-	if (this->_energyPoints == 0)
+	if (this->_energyPoints == 0 || this->_hitPoints == 0 || target.empty())
 	{
-		std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
+		if (_hitPoints == 0)
+			std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
+		else if (target.empty())
+			std::cout << "ClapTrap " << this->_name << " cannot attack anyone" << std::endl;
+		else
+			std::cout << "ClapTrap " << this->_name << " doesn't have energy points" << std::endl;
 		return ;
 	}
 	std::cout << "ClapTrap " << this->_name <<  " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
+	this->_energyPoints--;
 }
 
 void			ClapTrap::takeDamage(unsigned int amount)
@@ -69,14 +75,19 @@ void			ClapTrap::takeDamage(unsigned int amount)
 	if (this->_energyPoints == 0 || this->_hitPoints == 0)
 	{
 		if (_hitPoints == 0)
-			std::cout << "ClapThe following member functions are present and function as specified:Trap " << this->_name << " is dead" << std::endl;
+			std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
 		else
 			std::cout << "ClapTrap " << this->_name << " doesn't have energy points" << std::endl;
 		return ;
 	}
-	std::cout << "ClapTrap " << this->_name << " lost : " << amount << " energy point."  << std::endl;
-	this->_energyPoints -= 1;
-	this->_hitPoints -= amount;
+	std::cout << "ClapTrap " << this->_name << " lost : " << amount << " hit points."  << std::endl;
+	for (int i = 0; i < amount; i++)
+	{
+		if (this->_hitPoints == 0)
+			break ;
+		else
+			this->_hitPoints--;
+	}
 }
 
 void			ClapTrap::beRepaired(unsigned int amount)
@@ -96,5 +107,5 @@ void			ClapTrap::beRepaired(unsigned int amount)
 
 ClapTrap::~ClapTrap( void )
 {
-	std::cout << "Desctructor called." << std::endl;
+	std::cout << "ClapTrap desctructor called." << std::endl;
 }
