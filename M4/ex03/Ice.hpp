@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:16:43 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 18:43:20 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:23:05 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 # include <iostream>
 # include <string>
-# include "ICharacter.hpp"
+# include "AMateria.hpp"
 
 class Ice: public AMateria {
 
 public:
 	
 	Ice( void );
-	Ice( std::string const & type );
 	Ice( const Ice & src );
 	~Ice( void );
-	
-	virtual Ice*	clone() const;
-	virtual void	use(ICharacter& target);
+
+	Ice &	operator=(const Ice & rhs );
+	Ice*	clone() const;
+	void	use(ICharacter& target);
 };
 	

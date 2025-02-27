@@ -6,7 +6,7 @@
 #    By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/21 18:05:26 by sben-tay          #+#    #+#              #
-#    Updated: 2025/02/27 17:21:44 by sben-tay         ###   ########.fr        #
+#    Updated: 2025/02/28 00:26:25 by sben-tay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = c++
 CLFAGS = -Wall -Wextra -Werror -std=c++98
 CPPFLAGS = -I.
 
-SRCS := main.cpp AMateria.cpp Cure.cpp Ice.cpp
+SRCS := main.cpp AMateria.cpp Cure.cpp Ice.cpp ICharacter.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

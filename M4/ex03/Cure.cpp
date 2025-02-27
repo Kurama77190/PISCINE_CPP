@@ -6,16 +6,15 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:18:30 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 18:39:32 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:14:01 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cure.hpp"
 
-Cure::Cure( std::string const & type ): AMateria()
+Cure::Cure( void ): AMateria("cure")
 {
-	std::cout << "Cure constructor ad-hoc polymorphism called." << std::endl;
-	this->_type = type;
+	std::cout << "Cure constructor called." << std::endl;
 }
 
 Cure::~Cure( void )
@@ -23,11 +22,19 @@ Cure::~Cure( void )
 	std::cout << "Cure destructor called." << std::endl;
 }
 
+Cure::Cure( const Cure & src ): AMateria(src)
+{
+}
+
+Cure &	Cure::operator=( const Cure & rhs )
+{
+	this->AMateria::operator=(rhs);
+	return (*this);
+}
 
 Cure* Cure::clone() const
 {
-	Cure* cpy = new Cure(this->_type);
-	return (cpy);
+	return (new Cure(*this));
 }
 
 void Cure::use(ICharacter& target)
