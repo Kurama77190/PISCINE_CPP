@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:30:42 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 00:54:49 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:31:52 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string>
 # include <iostream>
 # include <new>
+# include "Brain.hpp"
 
 class Animal {
 

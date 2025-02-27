@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 14:24:48 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/27 18:18:30 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/27 18:39:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#include "Cure.hpp"
 
-# include "Animal.hpp"
-# include "Brain.hpp"
-# include <string>
-# include <iostream>
+Cure::Cure( std::string const & type ): AMateria()
+{
+	std::cout << "Cure constructor ad-hoc polymorphism called." << std::endl;
+	this->_type = type;
+}
 
-class Dog: public Animal {
-
-public:
-
-	Dog( void );
-	Dog( std::string );
-	Dog( const Dog & src );
-	virtual ~Dog();
-
-	Dog &		operator=( const Dog & rhs);
-
-	virtual void	makeSound( void ) const;
-	
-
-private:
-
-	Brain*	_brain;
-
-};
+Cure::~Cure( void )
+{
+	std::cout << "Cure destructor called." << std::endl;
+}
 
 
+Cure* Cure::clone() const
+{
+	Cure* cpy = new Cure(this->_type);
+	return (cpy);
+}
 
-#endif
+void Cure::use(ICharacter& target)
+{};

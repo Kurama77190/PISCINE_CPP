@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 14:24:48 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/27 18:38:01 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/27 18:39:56 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#include "Ice.hpp"
 
-# include "Animal.hpp"
-# include "Brain.hpp"
-# include <string>
-# include <iostream>
+Ice::Ice( std::string const & type ): AMateria()
+{
+	std::cout << "Ice constructor ad-hoc polymorphism called." << std::endl;
+	this->_type = type;
+}
 
-class Dog: public Animal {
-
-public:
-
-	Dog( void );
-	Dog( std::string );
-	Dog( const Dog & src );
-	virtual ~Dog();
-
-	Dog &		operator=( const Dog & rhs);
-
-	virtual void	makeSound( void ) const;
-	
-
-private:
-
-	Brain*	_brain;
-
-};
+Ice::~Ice( void )
+{
+	std::cout << "Ice destructor called." << std::endl;
+}
 
 
+Ice* Ice::clone() const
+{
+	Ice* cpy = new Ice(this->_type);
+	return (cpy);
+}
 
-#endif
+void Ice::use(ICharacter& target)
+{};

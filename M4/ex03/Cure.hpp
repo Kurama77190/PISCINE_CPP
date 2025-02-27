@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 00:54:53 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 00:55:32 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/27 17:04:32 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/27 18:43:34 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-# define WRONGANIMAL_HPP
+#pragma once
 
-# include <string>
 # include <iostream>
+# include <string>
 # include <new>
+# include "ICharacter.hpp"
 
-class WrongAnimal {
+class Cure: public AMateria {
 
 public:
-
-	WrongAnimal( void );
-	WrongAnimal( std::string );
-	WrongAnimal( const WrongAnimal & src );
-	~WrongAnimal();
-
-	WrongAnimal &		operator=( const WrongAnimal & rhs);
 	
-	std::string		getType( void ) const;
-	void			makeSound( void ) const;
-
-protected:
-
-	std::string type;
+	Cure( void );
+	Cure( const Cure & src );
+	Cure( std::string const & type );
+	~Cure( void );
+	
+	virtual Cure*	clone() const;
+	virtual void	use(ICharacter& target);
 
 };
-
-#endif
+	

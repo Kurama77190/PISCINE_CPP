@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongCat.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 00:22:20 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 00:47:34 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/27 14:24:48 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGCAT_HPP
-# define WRONGCAT_HPP
+#ifndef DOG_HPP
+# define DOG_HPP
 
 # include "Animal.hpp"
+# include "Brain.hpp"
 # include <string>
 # include <iostream>
 
-class WrongCat: public Animal {
+class Dog: public Animal {
 
 public:
 
-	WrongCat( void );
-	WrongCat( std::string );
-	WrongCat( const WrongCat & src );
-	virtual ~WrongCat();
+	Dog( void );
+	Dog( std::string );
+	Dog( const Dog & src );
+	virtual ~Dog();
 
-	WrongCat &		operator=( const WrongCat & rhs);
+	Dog &		operator=( const Dog & rhs);
 
 	virtual void	makeSound( void ) const;
+	
+
+private:
+
+	Brain*	_brain;
 
 };
+
+
 
 #endif

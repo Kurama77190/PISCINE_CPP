@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 14:24:48 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/27 17:16:43 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/27 18:43:20 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#pragma once
 
-# include "Animal.hpp"
-# include "Brain.hpp"
-# include <string>
 # include <iostream>
+# include <string>
+# include "ICharacter.hpp"
 
-class Dog: public Animal {
+class Ice: public AMateria {
 
 public:
-
-	Dog( void );
-	Dog( std::string );
-	Dog( const Dog & src );
-	virtual ~Dog();
-
-	Dog &		operator=( const Dog & rhs);
-
-	virtual void	makeSound( void ) const;
 	
-
-private:
-
-	Brain*	_brain;
-
+	Ice( void );
+	Ice( std::string const & type );
+	Ice( const Ice & src );
+	~Ice( void );
+	
+	virtual Ice*	clone() const;
+	virtual void	use(ICharacter& target);
 };
-
-
-
-#endif
+	
