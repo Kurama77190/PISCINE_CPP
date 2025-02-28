@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cure.hpp                                           :+:      :+:    :+:   */
+/*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 17:04:32 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/28 19:56:43 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/28 19:32:43 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/02/28 19:54:54 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "Character.hpp"
 
-# include <iostream>
-# include <string>
-# include <new>
-# include "AMateria.hpp"
-
-class Cure: public AMateria {
-
-public:
-	
-	Cure( void );
-	Cure( const Cure & src );
-	~Cure( void );
-	
-	Cure &	operator=( const Cure & rhs );
-	Cure*	clone() const;
-	void	use(ICharacter& target);	
-
+Character::Character( std::string name ): _name(name)
+{
 };
-	
+Character::~Character( void )
+{
+};
+
+std::string const & Character::getName( void )
+{
+	return (this->_name);
+}
+void equip(AMateria* m);
+void unequip(int idx);
+
+void Character::use(int idx, ICharacter& target)
+{
+};

@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:38:01 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/28 00:13:14 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:01:45 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ Ice* Ice::clone() const
 }
 
 void Ice::use(ICharacter& target)
-{};
+{
+	std::cout << "Ice : \"* shoots an ice bolt at " << target.getName() << "*\"" << std::endl;
+};

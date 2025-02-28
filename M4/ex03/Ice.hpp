@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:16:43 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/28 00:23:05 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:18:43 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <iostream>
 # include <string>
 # include "AMateria.hpp"
+
+# include "ICharacter.hpp"
 
 class Ice: public AMateria {
 
@@ -28,4 +30,3 @@ public:
 	Ice*	clone() const;
 	void	use(ICharacter& target);
 };
-	
