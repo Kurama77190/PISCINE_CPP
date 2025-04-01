@@ -6,11 +6,12 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:18:30 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/28 00:14:01 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:15:01 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cure.hpp"
+
 
 Cure::Cure( void ): AMateria("cure")
 {
@@ -28,7 +29,10 @@ Cure::Cure( const Cure & src ): AMateria(src)
 
 Cure &	Cure::operator=( const Cure & rhs )
 {
-	this->AMateria::operator=(rhs);
+	if (this != &rhs)
+	{
+		this->AMateria::operator=(rhs);
+	}
 	return (*this);
 }
 
@@ -38,4 +42,6 @@ Cure* Cure::clone() const
 }
 
 void Cure::use(ICharacter& target)
-{};
+{
+	std::cout << RED << "* heals " << target.getName() << "'s wounds *" << RESET << std::endl;	
+};

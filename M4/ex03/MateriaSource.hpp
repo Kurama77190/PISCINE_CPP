@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 13:39:10 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/03/25 15:04:59 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/03/25 15:42:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#pragma once
 
-# include "Animal.hpp"
-# include <string>
 # include <iostream>
+# include <string>
+# include "IMateriaSource.hpp"
 
-class Dog: public Animal {
+class MateriaSource: public IMateriaSource {
 
 public:
 
-	Dog( void );
-	Dog( std::string );
-	Dog( const Dog & src );
-	~Dog();
+	MateriaSource( void );
+	MateriaSource( const MateriaSource & src );
+	virtual ~MateriaSource( void );	
+	MateriaSource & 	operator=(const MateriaSource & rhs);
 
-	Dog &		operator=( const Dog & rhs);
+	void 		learnMateria(AMateria*);
+	AMateria*	createMateria(std::string const & type);
 
-	virtual void	makeSound( void ) const;
+private:
 
+	AMateria	*array[4];
 };
 
-
-
-#endif

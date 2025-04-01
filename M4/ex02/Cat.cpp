@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:34:08 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 15:37:43 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:40:14 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Cat::Cat( std::string type )
 {
 	std::cout << "Cat constructor ad-hoc polymorphism called" << std::endl;
 	this->type = type;
+	this->_brain = new Brain();
 }
 
 Cat::Cat( const Cat & src )
@@ -31,25 +32,26 @@ Cat::Cat( const Cat & src )
 	*this = src;
 }
 
-Cat &	Cat::operator=( const Cat & rhs )
+Cat & Cat::operator=( const Cat & rhs )
 {
 	this->type = rhs.type;
+	this->_brain = new Brain(*rhs._brain);
 	return (*this);
 }
 
-void			Cat::setBrainIdeas( int indexTab, std::string idea )
+void Cat::setBrainIdeas( int indexTab, std::string idea )
 {
 	this->_brain->setIdeas(indexTab, idea);
 }
 
-std::string		Cat::getBrainIdeas( int indexTab ) const
+std::string Cat::getBrainIdeas( int indexTab ) const
 {
 	if (this->_brain->getIdeas(indexTab).empty())
 		return ("null");
 	return (this->_brain->getIdeas(indexTab));
 }
 
-void	Cat::makeSound( void ) const
+void Cat::makeSound( void ) const
 {
 	std::cout << this->type << ": meow meow" << std::endl;
 }

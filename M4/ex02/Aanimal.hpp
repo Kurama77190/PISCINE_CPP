@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:30:42 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 15:51:50 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:05:38 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ public:
 	Animal( const Animal & src );
 	virtual ~Animal();
 
-	Animal &				operator=( const Animal & rhs);
+	Animal &		operator=( const Animal & rhs);
 	
-	std::string				getType( void ) const;
-	virtual	void			makeSound( void ) const = 0;
+	std::string		getType( void ) const;
+	virtual	void	makeSound( void ) const = 0;
 
 protected:
 

@@ -6,11 +6,12 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:18:51 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/28 00:21:33 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:22:50 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 AMateria::AMateria( std::string const & type ): _type(type)
 {
@@ -40,4 +41,11 @@ std::string const & AMateria::getType() const
 
 void AMateria::use(ICharacter& target)
 {
+	if (this->_type.compare("ice") == 0)
+		std::cout << RED << "Ice : \"* shoots an ice bolt at " << target.getName() << "*\"" << RESET << std::endl;
+	else if (this->_type.compare("cure") == 0)
+		std::cout << RED << "Cure : \"* heals " << target.getName() << "'s wounds *\"" << RESET << std::endl;
+	else
+		std::cout << RED << " il n'y a pas de fonction use() parmis l'enfant: " << RESET <<  target.getName() << std::endl;
+	return ;
 }

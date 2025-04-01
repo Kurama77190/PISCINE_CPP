@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AMateria.hpp                                       :+:      :+:    :+:   */
+/*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 15:55:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/25 18:23:14 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/03/25 14:58:59 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/03/25 15:50:38 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMATERIA_HPP
-# define AMATERIA_HPP
+#ifndef IMATERIASOURCE_HPP
+# define IMATERIASOURCE_HPP
 
+# include <iostream>
 # include <string>
 # include <new>
-# include <iostream>
-# define RED     "\033[31m"
-# define RESET   "\033[0m"
+# include "AMateria.hpp"
 
-class ICharacter;
-
-class AMateria {
-
+class IMateriaSource
+{
 public:
-
-AMateria( std::string const & type );
-AMateria( const AMateria & src );
-virtual ~AMateria( void );
-
-AMateria &			operator=( const AMateria & rhs );
-
-std::string const & getType() const;
-virtual AMateria* 	clone() const = 0;
-virtual void 		use(ICharacter& target);
-
-protected:
-
-std::string	_type;
-
+	virtual ~IMateriaSource() {}
+	virtual void learnMateria(AMateria*) = 0;
+	virtual AMateria* createMateria(std::string const & type) = 0;
 };
 
 #endif

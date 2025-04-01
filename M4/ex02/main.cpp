@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:36:37 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 16:01:32 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:04:21 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ int main()
 
 		Dog*	A = new Dog();
 		Cat*	B = new Cat();
-		// Animal*	C = new Animal();  teste d'instance d une clase abstraite
+		{
+			Cat *other = new Cat(*B);
+			other->makeSound();
+			std::cout << other->getBrainIdeas(100) << std::endl;
+			delete other;
+		}
 
 		for (int i = 0; i < 4; i++)
 		{

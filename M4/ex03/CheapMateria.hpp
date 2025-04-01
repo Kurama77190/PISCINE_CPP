@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   CheapMateria.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 18:35:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 13:39:10 by sben-tay         ###   ########.fr       */
+/*   Created: 2025/02/27 17:16:43 by sben-tay          #+#    #+#             */
+/*   Updated: 2025/03/31 13:37:10 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef CHEAP_MATERIA_HPP
+# define CHEAP_MATERIA_HPP
 
-# include "Animal.hpp"
-# include <string>
 # include <iostream>
+# include <string>
+# include "AMateria.hpp"
+# include "ICharacter.hpp"
 
-class Dog: public Animal {
+class CheapMateria: public AMateria {
 
 public:
+	
+	CheapMateria( void );
+	CheapMateria( const CheapMateria & src );
+	virtual ~CheapMateria( void );
 
-	Dog( void );
-	Dog( std::string );
-	Dog( const Dog & src );
-	~Dog();
-
-	Dog &		operator=( const Dog & rhs);
-
-	virtual void	makeSound( void ) const;
-
+	CheapMateria &	operator=(const CheapMateria & rhs );
+	CheapMateria*	clone() const;
 };
-
-
 
 #endif

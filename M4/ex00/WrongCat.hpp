@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:22:20 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 11:25:05 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:07:00 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ public:
 
 	WrongCat &		operator=( const WrongCat & rhs);
 
-	virtual void	makeSound( void ) const;
+	void	makeSound( void ) const;
 
 };
 

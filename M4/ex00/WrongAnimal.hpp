@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:54:53 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 11:24:12 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:39:43 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ public:
 	WrongAnimal( void );
 	WrongAnimal( std::string );
 	WrongAnimal( const WrongAnimal & src );
-	~WrongAnimal();
+	virtual ~WrongAnimal();
 
 	WrongAnimal &		operator=( const WrongAnimal & rhs);
 	

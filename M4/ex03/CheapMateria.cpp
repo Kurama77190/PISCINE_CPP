@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.cpp                                            :+:      :+:    :+:   */
+/*   CheapMateria.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:38:01 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/28 19:21:53 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:42:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Ice.hpp"
+#include "CheapMateria.hpp"
 	
-Ice::Ice( void ): AMateria("ice")
+CheapMateria::CheapMateria( void ): AMateria("CheapMateria")
 {
-	std::cout << "Ice constructor called." << std::endl;
+	std::cout << "CheapMateria constructor called." << std::endl;
 }
 
-Ice::~Ice( void )
+CheapMateria::~CheapMateria( void )
 {
-	std::cout << "Ice destructor called." << std::endl;
+	std::cout << "CheapMateria destructor called." << std::endl;
 }
 
-Ice::Ice( const Ice & src ): AMateria(src)
+CheapMateria::CheapMateria( const CheapMateria & src ): AMateria(src)
 {
 }
 
-Ice &	Ice::operator=(const Ice & rhs )
+CheapMateria &	CheapMateria::operator=(const CheapMateria & rhs )
 {
 	this->AMateria::operator=(rhs);
 	return (*this);
 }
 
-Ice* Ice::clone() const
+CheapMateria* CheapMateria::clone() const
 {
-	return (new Ice(*this));
-}
-
-void Ice::use(ICharacter& target)
-{
-	std::cout << RED << "* shoots an ice bolt at " << target.getName() << " *" << RESET << std::endl;
+	return (new CheapMateria(*this));
 }

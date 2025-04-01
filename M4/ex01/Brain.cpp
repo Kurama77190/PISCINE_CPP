@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 02:14:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 15:18:21 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:03:12 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ Brain::Brain( const Brain & src )
 
 Brain &	Brain::operator=( const Brain & rhs )
 {
-	this->ideas[100] = rhs.ideas[100];
+	for (int i = 0; i < 100; i++)
+		this->ideas[i] = rhs.ideas[i];
 	return (*this);
 }
 

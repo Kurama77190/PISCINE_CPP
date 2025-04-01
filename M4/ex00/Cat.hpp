@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:34:05 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 00:47:21 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:39:06 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ public:
 	Cat( void );
 	Cat( std::string );
 	Cat( const Cat & src );
-	virtual ~Cat();
+	~Cat();
 
 	Cat &		operator=( const Cat & rhs);
 
