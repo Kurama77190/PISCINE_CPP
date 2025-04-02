@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:37:48 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/28 19:32:18 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:42:40 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main()
 	delete ralph;
 	delete samy;
 	
-	// test assignement Charactere
+	// test assignement Charactere (deep copy)
 	Character louis("louis");
 	Character vincent("vincent");
 

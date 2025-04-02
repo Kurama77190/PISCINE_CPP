@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:32:43 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 17:12:51 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:53:49 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,18 @@ void Character::unequip(int idx)
         std::cerr << RED << "Error : Invalid index" << RESET << std::endl;
         return ;
     }
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 1024; i++)
     {
         if (this->backup[i] == NULL)
         {
             this->backup[i] = this->inventory[idx];
             this->inventory[idx] = NULL;
             break ;
+        }
+        if (i == 1024)
+        {
+            std::cerr << RED << "Backup is full, cannot unequip this Materia." << RESET << std::endl;
+            return ;
         }
     }
 }

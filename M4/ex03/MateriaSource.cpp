@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:09:11 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 17:14:32 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:27:30 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ MateriaSource::~MateriaSource( void )
 	}
 }
 
-MateriaSource & 	MateriaSource::operator=(const MateriaSource & rhs)
+MateriaSource & MateriaSource::operator=(const MateriaSource & rhs)
 {
-	if (this != &rhs) 
+	if (this != &rhs)
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -50,7 +50,7 @@ MateriaSource & 	MateriaSource::operator=(const MateriaSource & rhs)
 	return (*this);
 }
 
-void 		MateriaSource::learnMateria(AMateria* src)
+void MateriaSource::learnMateria(AMateria* src)
 {
 	if (src == NULL)
 	{

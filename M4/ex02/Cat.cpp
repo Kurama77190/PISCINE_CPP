@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:34:08 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/01 16:40:14 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:41:48 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Cat::Cat( void ): Animal()
 	this->_brain = new Brain();
 }
 
-Cat::Cat( std::string type )
+Cat::Cat( std::string type ): Animal(type)
 {
 	std::cout << "Cat constructor ad-hoc polymorphism called" << std::endl;
 	this->type = type;
@@ -29,13 +29,20 @@ Cat::Cat( std::string type )
 Cat::Cat( const Cat & src )
 {
 	std::cout << "Cat copy constructor called on " << src.type << std::endl;
+	this->_brain = new Brain(*src._brain);
+	
 	*this = src;
 }
 
 Cat & Cat::operator=( const Cat & rhs )
 {
-	this->type = rhs.type;
-	this->_brain = new Brain(*rhs._brain);
+	if (this != &rhs)
+	{
+		this->type = rhs.type;
+		if (this->_brain)
+			delete this->_brain;
+		this->_brain = new Brain(*rhs._brain);	
+	}
 	return (*this);
 }
 

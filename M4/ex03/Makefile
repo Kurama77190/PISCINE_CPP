@@ -6,11 +6,11 @@
 #    By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/21 18:05:26 by sben-tay          #+#    #+#              #
-#    Updated: 2025/03/25 17:43:32 by sben-tay         ###   ########.fr        #
+#    Updated: 2025/04/02 15:54:39 by sben-tay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = MATARIA
+NAME = MATERIA
 
 CC = c++
 CLFAGS = -Wall -Wextra -Werror -std=c++98
@@ -33,4 +33,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean rez
+.PHONY: all clean fclean re

@@ -6,14 +6,14 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:31:54 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 16:55:01 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:43:40 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 
 
-Animal::Animal( void ) : Animal("Animal")
+Animal::Animal( void ) : type("Animal")
 {
 	std::cout << "Animal constructor default called" << std::endl;
 }
@@ -35,7 +35,8 @@ Animal::Animal( const Animal & src ) : type(src.type)
 
 Animal &	Animal::operator=( const Animal & rhs )
 {
-	this->type = rhs.type;
+	if (this != &rhs)
+		this->type = rhs.type;
 	return (*this);
 }
 

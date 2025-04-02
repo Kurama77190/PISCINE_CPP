@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:38:01 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/28 19:21:53 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:45:22 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ Ice::Ice( const Ice & src ): AMateria(src)
 
 Ice &	Ice::operator=(const Ice & rhs )
 {
-	this->AMateria::operator=(rhs);
+	if (this != &rhs)
+		this->AMateria::operator=(rhs);
 	return (*this);
 }
 

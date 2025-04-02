@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:36:37 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 17:04:21 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:42:04 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main()
 
 		Dog*	A = new Dog();
 		Cat*	B = new Cat();
+		// Animal C; <- this is not possible because Animal is an abstract class
 		{
 			Cat *other = new Cat(*B);
 			other->makeSound();

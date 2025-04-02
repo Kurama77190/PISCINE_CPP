@@ -6,36 +6,39 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:34:08 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/01 16:31:07 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:36:53 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-Cat::Cat( void ): Animal()
+Cat::Cat( void ): Animal("Cat")
 {
 	std::cout << "Cat constructor default called" << std::endl;
-	this->type = "Cat";
 	this->_brain = new Brain();
 }
 
-Cat::Cat( std::string type )
+Cat::Cat( std::string type ): Animal(type)
 {
 	std::cout << "Cat constructor ad-hoc polymorphism called" << std::endl;
-	this->type = type;
 	this->_brain = new Brain();
 }
 
-Cat::Cat( const Cat & src )
+Cat::Cat( const Cat & src ): Animal(src.type)
 {
 	std::cout << "Cat copy constructor called on " << src.type << std::endl;
-	*this = src;
+	this->_brain = new Brain();
 }
 
 Cat &	Cat::operator=( const Cat & rhs )
 {
-	this->type = rhs.type;
-	this->_brain = new Brain(*rhs._brain);
+	if (this != &rhs)
+	{
+		this->type = rhs.type;
+		if (this->_brain)
+			delete this->_brain;
+		this->_brain = new Brain(*rhs._brain);
+	}
 	return (*this);
 }
 

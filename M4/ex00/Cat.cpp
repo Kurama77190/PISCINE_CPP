@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 23:34:08 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/31 16:56:05 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:33:07 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ Cat::Cat( const Cat & src ) : Animal(src.type)
 
 Cat &	Cat::operator=( const Cat & rhs )
 {
-	this->type = rhs.type;
+	if (this != &rhs)
+		this->::Animal::operator=(rhs);
 	return (*this);
 }
 

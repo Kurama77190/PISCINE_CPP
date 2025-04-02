@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:22:12 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/27 11:25:32 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:33:34 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ WrongCat::WrongCat( const WrongCat & src )
 
 WrongCat &	WrongCat::operator=( const WrongCat & rhs )
 {
-	this->type = rhs.type;
+	if (this != &rhs)
+		this->type = rhs.type;
 	return (*this);
 }
 

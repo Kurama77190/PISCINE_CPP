@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:18:51 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/03/25 18:22:50 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:20:58 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ AMateria::AMateria( const AMateria & src ): _type(src._type)
 
 AMateria &	AMateria::operator=( const AMateria & rhs )
 {
-	this->_type = rhs._type;
+	if (this != &rhs)
+		this->_type = rhs._type;
 	return (*this);
 }
 
