@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 05:38:40 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/15 16:41:56 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:06:24 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define YELLOW "\033[33m"
 # define GREEN "\033[32m"
 
+class AForm;
+
 class Bureaucrat {
 public:
 	Bureaucrat();
@@ -37,18 +39,21 @@ public:
 
 	void				incrementGrade();
 	void				decrementGrade();
+	void				signForm(AForm & form);
 
+	void				executeForm(AForm const & form);
+	
 	class GradeTooHighException : public std::exception {
 	public:
-		virtual const char* what() const throw(){
-			return "Grade too high!";
+		const char* what() const throw(){
+			return "Grade is too high!";
 		}
 	};
 
 	class GradeTooLowException : public std::exception {
 	public:
-		virtual const char * what() const throw(){
-			return "Grade too low!";
+		const char * what() const throw(){
+			return "Grade is too low!";
 		}
 	};
 
@@ -62,12 +67,3 @@ std::ostream & operator<<(std::ostream & o, Bureaucrat const & i);
 
 
 #endif
-
-
-
-
-
-
-
-
-

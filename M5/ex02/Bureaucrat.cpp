@@ -6,30 +6,29 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 16:14:38 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/15 18:13:27 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:08:03 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
-	std::cout << "Parameterized constructor called" << std::endl;
 	if (_grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (_grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Bureaucrat constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
+Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
 {
-	std::cout << "Had-hoc constructor called" << std::endl;
-	if (grade < 1)
+	std::cout << "Bureaucrat had-hoc constructor called" << std::endl;
+	if (_grade < 1)
 		throw Bureaucrat::GradeTooHighException();
-	else if (grade > 150)
+	else if (_grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	this->_grade = grade;
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src._name)
@@ -79,4 +78,32 @@ std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs)
 {
 	o << RED << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << RESET << std::endl;
 	return o;
+}
+
+//new function
+
+void	Bureaucrat::signForm(AForm & form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << RED << this->getName() << " signed " << form.getName() << RESET << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << RED << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
+	}
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
