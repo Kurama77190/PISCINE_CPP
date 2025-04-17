@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 19:38:54 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/15 19:49:38 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:05:28 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # include "AForm.hpp"
 # include "Bureaucrat.hpp"
 
-class Intern
-{
+class Intern {
 public:
 	Intern( void );
 	Intern( const Intern & src );
@@ -28,9 +27,7 @@ public:
 	
 	class FormNotFoundException : public std::exception {
 	public:
-		virtual const char* what() const throw() {
-			return "Form not found!";
-		}
+		virtual const char* what() const throw() { return "Form not found!"; }
 	};
 
 private:

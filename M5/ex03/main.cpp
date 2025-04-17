@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 19:10:02 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/15 19:52:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:20:57 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main() {
     Bureaucrat alice("Alice", 150);
     Bureaucrat highRank("HighRank", 1);
     Bureaucrat lowRank("LowRank", 150);
+    Bureaucrat RobotCop("RobotCop", 45);
 
     std::cout << john << std::endl;
     std::cout << bob << std::endl;
@@ -53,7 +54,7 @@ int main() {
 
     alice.executeForm(shrubberyForm); // Should succeed (ASCII trees)
     john.executeForm(pardonForm); // Should succeed (pardon Alice)
-    bob.executeForm(robotomyForm); // Should succeed or fail randomly (robotomy)
+    RobotCop.executeForm(robotomyForm); // Should succeed or fail randomly (robotomy)
 
     std::cout << GREEN << "=========== TEST INTERN =========== " << RESET << std::endl;
 
@@ -69,10 +70,13 @@ int main() {
     std::cout << *form3 << std::endl;
 
     // Test: Intern creates an invalid form
-    try {
+    try
+    {
         AForm *invalidForm = intern.makeForm("invalid form", "Target");
         delete invalidForm; // Just in case it somehow succeeds
-    } catch (std::exception &e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << RED << e.what() << RESET << std::endl;
     }
 
@@ -91,5 +95,5 @@ int main() {
     delete form2;
     delete form3;
 
-    return 0;
+    return (0);
 }

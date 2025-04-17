@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 19:45:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/15 19:49:47 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:40:47 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,15 @@
 #include "AForm.hpp"
 
 Intern::Intern( void )
-{
-	std::cout << "Intern constructor called" << std::endl;
-}
+{}
 
 Intern::Intern( const Intern & src )
 {
-	std::cout << "Intern copy constructor called" << std::endl;
 	*this = src;
 }
 
 Intern::~Intern( void )
-{
-	std::cout << "Intern destructor called" << std::endl;
-}
+{}
 
 Intern & Intern::operator=( Intern const & rhs )
 {

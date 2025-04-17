@@ -19,19 +19,13 @@ _isSigned(isSigned), _requiredGradeToSign(toSigne), _requiredGradeToExecute(toEx
 		throw AForm::GradeTooHighException();
 	else if (toSigne > 150 || toExecute > 150)
 		throw AForm::GradeTooLowException();
-	std::cout << "AForm constructor called" << std::endl;
 }
 
 AForm::AForm ( const AForm & src )
-: _name(src._name), _isSigned(src._isSigned), _requiredGradeToSign(src._requiredGradeToSign), _requiredGradeToExecute(src._requiredGradeToExecute)
-{
-	std::cout << "AForm copy constructor called" << std::endl;
-}
+: _name(src._name), _isSigned(src._isSigned), _requiredGradeToSign(src._requiredGradeToSign)
+, _requiredGradeToExecute(src._requiredGradeToExecute){}
 
-AForm::~AForm( void )
-{
-	std::cout << "AForm destructor called" << std::endl;
-}
+AForm::~AForm( void ){}
 
 AForm & AForm::operator=( AForm const & rhs )
 {
@@ -72,6 +66,6 @@ void	AForm::beSigned(const Bureaucrat & src)
 
 std::ostream & operator<<( std::ostream & o, AForm const & i )
 {
-	o << RED << "AForm name: " << i.getName() << ", is signed: " << i.getIsSigned() << ", required grade to sign: " << i.getRequiredGradeToSign() << ", required grade to execute: " << i.getRequiredGradeToExecute() << RESET << std::endl;
+	o << "AForm name: " << i.getName() << ", is signed: " << i.getIsSigned() << ", required grade to sign: " << i.getRequiredGradeToSign() << ", required grade to execute: " << i.getRequiredGradeToExecute() << std::endl;
 	return o;
 }
