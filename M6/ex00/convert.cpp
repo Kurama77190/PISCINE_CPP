@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:16:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/19 06:27:05 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:10:23 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ bool isFloat(const std::string &literal)
 {
 	if (literal.find('.') == std::string::npos)
 		return false;
+	if (literal.back() == 'f')
+		return false;
 	for (size_t i = 0; i < literal.length(); ++i)
 	{
-		if (!isdigit(literal[i]) && literal[i] != '.')
+		if (literal[i] == '+' || literal[i] == '-')
+			i++;
+		else if (!isdigit(literal[i]) && literal[i] != '.')
 			return false;
 	}
 	return true;
@@ -45,7 +49,9 @@ bool isDouble(const std::string &literal)
 		return false;
 	for (size_t i = 0; i < literal.length(); ++i)
 	{
-		if (!isdigit(literal[i]) && literal[i] != '.')
+		if (literal[i] == '+' || literal[i] == '-')
+			i++;
+		else if (!isdigit(literal[i]) && literal[i] != '.')
 			return false;
 	}
 	return true;

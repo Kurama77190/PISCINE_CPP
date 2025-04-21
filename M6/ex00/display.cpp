@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:36:28 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/19 06:44:09 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/20 23:30:49 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	display(char c)
 void display(int i)
 {
 	std::cout << "char: ";	
-	if (i >= 0 && i <= 127 && std::isprint(i))
+	if (i >= MIN_CHAR && i <= MAX_INT && std::isprint(static_cast<unsigned char>(i)))
 		std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
 	else
 		std::cout << "Non displayable" << std::endl;
@@ -84,7 +84,7 @@ void display(double d, bool isSpecial = false)
 	}
 
 	std::cout << "char: ";
-	if (std::isnan(d) || d < 0 || d > 127)
+	if (std::isnan(d) || d < MIN_CHAR || d > MAX_CHAR)
 		std::cout << "impossible" << std::endl;
 	else if (!std::isprint(static_cast<char>(d)))
 		std::cout << "impossible" << std::endl;
