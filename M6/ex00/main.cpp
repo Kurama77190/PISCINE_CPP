@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 00:12:01 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/19 00:12:27 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:41:34 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,7 @@ int main(int argc, char **argv)
 
     return (0);
 }
+
+// TODO: ERREUR DETECTION DES FLOATS.
+// FIX:
+

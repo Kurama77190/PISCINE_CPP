@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 00:13:26 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/21 19:41:09 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:38:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 ScalarConverter::ScalarConverter() {};
 ScalarConverter::~ScalarConverter() {};
-ScalarConverter::ScalarConverter(const ScalarConverter &src) {};
-ScalarConverter &ScalarConverter::operator=(const ScalarConverter &rhs) { return *this; };
+ScalarConverter::ScalarConverter(const ScalarConverter &src) { this->operator=(src); };
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &rhs) {
+	(void)rhs;
+	return (*this);
+}
 
 void ScalarConverter::convert(const std::string &literal)
 {
@@ -24,13 +27,13 @@ void ScalarConverter::convert(const std::string &literal)
 			return display(literal[0]);
 
 		else if (isInt(literal)) {
-			long l = std::strtol(literal.c_str(), NULL, 10);
+			long l = strtol(literal.c_str(), NULL, 10);
 			if (l < MIN_INT || l > MAX_INT)
 				throw std::out_of_range("int overflow");
 			return display(static_cast<int>(l));
 		}
 		if (isFloat(literal)) {
-			double d = std::strtod(literal.c_str(), NULL);
+			double d = strtod(literal.c_str(), NULL);
 			if (d < -MAX_FLOAT || d > MAX_FLOAT)
 				throw std::out_of_range("float overflow");
 			return display(static_cast<float>(d), isSpecial(literal));
@@ -38,7 +41,7 @@ void ScalarConverter::convert(const std::string &literal)
 
 		if (isDouble(literal)) {
 			char* end;
-			double d = std::strtod(literal.c_str(), &end);
+			double d = strtod(literal.c_str(), &end);
 			if (d == HUGE_VAL || d == -HUGE_VAL)
 				throw std::out_of_range("double overflow");
 			return display(d, isSpecial(literal));
