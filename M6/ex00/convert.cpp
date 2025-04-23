@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:16:29 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/04/22 17:20:24 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:35:23 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,27 @@ bool isInt(const std::string &literal)
 
 bool isFloat(const std::string &literal)
 {
-	if (literal.find('.') == std::string::npos && literal.find('f') == std::string::npos)
+	if (literal.length() < 2 || literal[literal.length() - 1] != 'f')
 		return false;
-	if (*literal.end() == 'f')
-		return false;
-	for (size_t i = 0; i < literal.length(); ++i)
+
+	std::string core = literal.substr(0, literal.length() - 1);
+	bool hasDecimal = false;
+
+	for (size_t i = 0; i < core.length(); ++i)
 	{
-		if (literal[i] == '+' || literal[i] == '-')
-			i++;
-		else if (!isdigit(literal[i]) && literal[i] != '.')
+		if (i == 0 && (core[i] == '+' || core[i] == '-'))
+			continue;
+		if (core[i] == '.')
+		{
+			if (hasDecimal)
+				return false;
+			hasDecimal = true;
+		}
+		else if (!isdigit(core[i]))
 			return false;
 	}
-	return true;
+
+	return hasDecimal;
 }
 
 bool isDouble(const std::string &literal)
@@ -63,3 +72,4 @@ bool isSpecial(const std::string &literal)
 			|| literal == "+inff" || literal == "nanf" || literal == "inff"
 			|| literal == "-inf" || literal == "+inf");
 }
+
