@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:35:45 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/05/03 05:13:50 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:46:51 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 # include <iterator>
 # include <stdexcept>
 # include <cmath>
+# include <ctime>
+# include <cstdlib>
+
+# define BLUE "\033[34m"
+# define RED "\033[31m"
+# define RESET "\033[0m"
+# define GREEN "\033[32m"
+
 
 
 class Span {
@@ -36,7 +44,11 @@ public:
 	int				shortestSpan();
 	int				longestSpan();
 
-	void			addMaxCapacity(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+	void			addMaxCapacity();
+	void			displaySpan();
+
+	void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+
 
  private:
 
