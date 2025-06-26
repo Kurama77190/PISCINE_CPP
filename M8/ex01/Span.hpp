@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:35:45 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/05/06 18:46:51 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:33:11 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ public:
 	void			addMaxCapacity();
 	void			displaySpan();
 
-	void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+	void addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 
 
  private:

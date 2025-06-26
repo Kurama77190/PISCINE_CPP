@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:37:10 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/05/06 18:36:22 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:48:02 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int Span::longestSpan(){
     return sorted.back() - sorted.front();
 }
 
-void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+void Span::addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
 	for (; begin != end; begin++) {
 		if (_span.size() >= _maxSize)
 			throw std::runtime_error("Span is full");
@@ -69,18 +69,11 @@ void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterato
 	}
 }
 
-void Span::addMaxCapacity() {
-	std::vector<int> tmp;
-	std::srand(time(NULL));
-	while (_span.size() + tmp.size() < _maxSize)
-	{
-		int	random = rand() % INT_MAX;
-		tmp.push_back(random);
-	}
-	addNumber(tmp.begin(), tmp.end());
-}
-
 void	Span::displaySpan() {
+	if (_span.empty()) {
+		std::cout << "Span is empty." << std::endl;
+		return ;
+	}
 	std::vector<int>::iterator begin = _span.begin();
 	std::vector<int>::iterator end = _span.end();
 
