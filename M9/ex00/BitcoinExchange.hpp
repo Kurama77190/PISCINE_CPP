@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:04:24 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/06/30 16:45:19 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:16:10 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ public:
 	BitcoinExchange &operator=(const BitcoinExchange &rhs);
 	
 	void loadDatabase(std::string filename);
-	double getExchangeRate(const std::string &date) const;
+	void displayExchange() const;
+	// double getExchangeRate(const std::string &date) const;
 	void processLine(const std::string &line);
 
 	private:
-	std::multimap<std::string, double> _exchangeRates;
+	std::map<std::string, double> _exchangeRates;
 };
 
 // void parseLineToMap(const std::string &line, std::map<std::string, double> &dataMap, char separator) {
