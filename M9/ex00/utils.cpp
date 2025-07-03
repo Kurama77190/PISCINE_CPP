@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/06/30 18:25:54 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 12:54:26 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,31 @@ namespace utils {
 	std::map<std::string, double> splitDataOnMap(const std::string &line, char separator) {
 		std::map<std::string, double> dataMap;
 		std::size_t pos = line.find(separator);
-		
+
 		if (pos == std::string::npos)
 			throw std::invalid_argument("Error: Invalid line format in database.");
 		
-		std::string key = line.substr(0, pos);
-		if (invalidDate(key) || key.empty() || invalidDate(key) || key.size() != 10)
+		std::string key = utils::trim(line.substr(0, pos));
+		if (key.empty() || key.size() != 10)
 			throw std::invalid_argument("Error: Invalid date format in database: " + key);
-		std::string value = line.substr(pos + 1);
-		if (value < "0" || value > "1000" || value.size() > 4 || value.empty())
+		std::string value = utils::trim(line.substr(pos + 1));
+		if (value.empty())
 			throw std::invalid_argument("Error: Invalid value in database: " + value);
 		
-		
-		double fvalue = std::atoi(value.c_str());
-		if (fvalue < 0)
-			throw std::invalid_argument("Error: Negative value in database.");
-		
+		char *check;
+		double fvalue = std::strtod(value.c_str(), &check);
+		if (*check)
+			throw std::invalid_argument("Error: Invalid value in database: " + value);
 		dataMap[key] = fvalue;
 		return dataMap;
 	}
 
-	
+	std::string trim(std::string str) {
+		size_t first = str.find_first_not_of(" \t\n\r\f\v");
+		size_t last = str.find_last_not_of(" \t\n\r\f\v");
+		if (first == std::string::npos || last == std::string::npos)
+			return ""; // String is empty or contains only whitespace
+		return str.substr(first, last - first + 1);
+	}
 
 }

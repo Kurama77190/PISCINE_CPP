@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/06/30 18:34:33 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 12:50:13 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	BitcoinExchange::displayExchange() const {
 	std::map<std::string, double>::const_iterator it = _exchangeRates.begin();
 	std::map<std::string, double>::const_iterator end = _exchangeRates.end();
 	for (; it != end; ++it) {
-		std::cout << it->first << " => " << it->second << " " << it->second << std::endl;
+		std::cout << it->first << " => " << it->second << std::endl;
 	}
 }
 
