@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 17:53:13 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:55:56 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void BitcoinExchange::getExchangeRate(const std::string &date, double value) con
 			std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
 			return;
 		}
-		--it; // Get the previous date's rate
+		--it;
 	}
 	double exchangeRate = it->second;
 	std::cout << date << " => " << value * exchangeRate << std::endl;
