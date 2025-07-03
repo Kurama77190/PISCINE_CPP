@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 17:55:56 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:22:22 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void BitcoinExchange::getExchangeRate(const std::string &date, double value) con
 		--it;
 	}
 	double exchangeRate = it->second;
-	std::cout << date << " => " << value * exchangeRate << std::endl;
+	std::cout << std::fixed << std::setprecision(2) << date << " => " << value * exchangeRate << std::endl;
 	
 }
 
@@ -86,7 +86,7 @@ void	BitcoinExchange::displayExchange() const {
 	std::map<std::string, double>::const_iterator it = _exchangeRates.begin();
 	std::map<std::string, double>::const_iterator end = _exchangeRates.end();
 	for (; it != end; ++it) {
-		std::cout << it->first << " => " << it->second << std::endl;
+		std::cout << std::fixed << std::setprecision(2) << it->first << " => " << it->second << std::endl;
 	}
 }
 

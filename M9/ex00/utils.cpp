@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 18:52:08 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:38:26 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ namespace utils {
 			std::cerr << "Error: Invalid day: " << day << " for month: " << month << " in line : " << content << std::endl;
 			return true;
 		}
-
 		return false;
 	}
 
