@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 17:18:58 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:53:13 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void BitcoinExchange::loadDatabase(std::string filename) {
 	if (!dataCsv.is_open() || utils::emptyFile("data.csv")) {
 		throw std::ios_base::failure(std::string("Error: Could not open file: ") + filename);
 	}
-	
 	//open database file.txt
 	std::ifstream inputFile(filename.c_str());
 	if (!inputFile.is_open() || utils::emptyFile(filename) || !utils::postFix(filename)) {
@@ -59,9 +58,27 @@ void BitcoinExchange::processLine(std::ifstream &filename) {
 		if (utils::invalidValue(content))
 			continue;
 		std::string date = utils::trim(content.substr(0, content.find('|')));
-		std::string valueStr = utils::trim(content.substr(content.find('|') + 1));
-		std::cout << date << " => " << valueStr << std::endl;
+		double value = std::strtod(utils::trim(content.substr(content.find('|') + 1)).c_str(), NULL);
+		this->getExchangeRate(date, value);
 	}
+	
+}
+
+void BitcoinExchange::getExchangeRate(const std::string &date, double value) const {
+	std::map<std::string, double>::const_iterator it = _exchangeRates.lower_bound(date);
+	if (it == _exchangeRates.end()) {
+		std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
+		return;
+	}
+	if (it->first != date) {
+		if (it == _exchangeRates.begin()) {
+			std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
+			return;
+		}
+		--it; // Get the previous date's rate
+	}
+	double exchangeRate = it->second;
+	std::cout << date << " => " << value * exchangeRate << std::endl;
 	
 }
 
