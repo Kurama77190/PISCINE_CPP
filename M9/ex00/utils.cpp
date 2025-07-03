@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 17:24:38 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:52:08 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ namespace utils {
 
 		std::string date = utils::trim(content.substr(0, content.find('|')));
 		if (date.empty()) {
-			std::cerr << "Error: bad input: " << content << std::endl;
 			return true;
 		}
 		if (date.size() != 10 || date[4] != '-' || date[7] != '-') {
