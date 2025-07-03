@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:04:24 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/06/30 18:16:10 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:07:39 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ public:
 	
 	void loadDatabase(std::string filename);
 	void displayExchange() const;
-	// double getExchangeRate(const std::string &date) const;
-	void processLine(const std::string &line);
+	void processLine(std::ifstream &filename);
 
 	private:
 	std::map<std::string, double> _exchangeRates;

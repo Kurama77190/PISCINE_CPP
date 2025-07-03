@@ -6,13 +6,19 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 12:50:13 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:18:58 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include "utils.hpp"
 #include <map>
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <string>
+#include <iomanip>
+
 
 BitcoinExchange::BitcoinExchange() {}
 
@@ -36,20 +42,27 @@ void BitcoinExchange::loadDatabase(std::string filename) {
 		throw std::ios_base::failure(std::string("Error: Could not open file: ") + filename);
 	}
 	
-	// Read the first line of file.txt to skip the header
-	std::string line;
-	std::getline(dataCsv, line);
-	while (std::getline(dataCsv, line)) {
-		this->_exchangeRates = utils::splitDataOnMap(line, ',');
-		displayExchange(); // Display the exchange rates
-		// processLine(line); // need learn subject
-	}
+	utils::splitDataOnMap(dataCsv, _exchangeRates);
+	// displayExchange(); // Display the exchange rates
+	processLine(inputFile);
 	dataCsv.close();
 	inputFile.close();
 }
 
-void BitcoinExchange::processLine(const std::string &line) {
-	(void)line;
+void BitcoinExchange::processLine(std::ifstream &filename) {
+	std::string content;
+	
+	while(std::getline(filename, content)) {
+
+		if (utils::invalidDate(content))
+			continue;
+		if (utils::invalidValue(content))
+			continue;
+		std::string date = utils::trim(content.substr(0, content.find('|')));
+		std::string valueStr = utils::trim(content.substr(content.find('|') + 1));
+		std::cout << date << " => " << valueStr << std::endl;
+	}
+	
 }
 
 void	BitcoinExchange::displayExchange() const {
