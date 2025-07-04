@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/04 10:48:51 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:58:33 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 #include <map>
 #include <cstdlib>
 #include <iomanip>
+#include <algorithm>
 
+#define RED "\033[31m"
+#define RESET "\033[0m"
 namespace utils {
 		
 	/*
@@ -61,7 +64,7 @@ namespace utils {
 			return true;
 		}
 		if (date.size() != 10 || date[4] != '-' || date[7] != '-') {
-			std::cerr << "Error: Invalid date format: " << date << " in line : " << content << std::endl;
+			std::cerr << RED << "Error: bad input => " << content <<  RESET << std::endl;
 			return true;
 		}
 
@@ -70,11 +73,11 @@ namespace utils {
 		int day = std::atoi(date.substr(8, 2).c_str());
 
 		if (year < 2009 || year > 2025) {
-			std::cerr << "Error: Year out of range: " << year << " in line : " << content << std::endl;
+			std::cerr << RED << "Error: bad input => " << content <<  RESET << std::endl;
 			return true;
 		}
 		if (month < 1 || month > 12) {
-			std::cerr << "Error: Invalid month: " << month << " in line : " << content << std::endl;
+			std::cerr << RED << "Error: bad input => " << content <<  RESET << std::endl;
 			return true;
 		}
 
@@ -83,7 +86,7 @@ namespace utils {
 			maxDays[1] = 29;
 
 		if (day < 1 || day > maxDays[month - 1]) {
-			std::cerr << "Error: Invalid day: " << day << " for month: " << month << " in line : " << content << std::endl;
+			std::cerr << RED << "Error: bad input => " << content <<  RESET << std::endl;
 			return true;
 		}
 		return false;
@@ -91,23 +94,23 @@ namespace utils {
 
 
 	bool invalidValue(const std::string &content) {
-		std::string valueStr = utils::trim(content.substr(content.find('|') + 1));
+		std::string valueStr = utils::trim(content.substr(content.find('|') + 1, content.size()));
 		if (valueStr.empty()) {
-			std::cerr << "Error: bad input: " << content << std::endl;
+			std::cerr << RED << "Error: bad input: " << content << RESET << std::endl;
 			return true;
 		}
 		char *check;
 		double value = strtod(valueStr.c_str(), &check);
 		if (*check) {
-			std::cerr << "Error: bad input: " << content << std::endl;
+			std::cerr << RED << "Error: bad input: " << content << RESET << std::endl;
 			return true;
 		}
 		if (value < 0) {
-			std::cerr << std::fixed << std::setprecision(2) << "Error: Negative value : " << content << std::endl;
+			std::cerr << RED << std::fixed << std::setprecision(2) << "Error: not a positive number => " << content << RESET << std::endl;
 			return true;
 		}
 		if (value > 1000) {
-			std::cerr << "Error: Value exceeds maximum limit of 1000 in line: " << content << std::endl;
+			std::cerr << RED << "Error: too large a number => " << content << RESET << std::endl;
 			return true;
 		}
 		return false;
@@ -115,9 +118,17 @@ namespace utils {
 
 	void splitDataOnMap(std::ifstream &line, std::map<std::string, double> &dataMap) {
 		std::string content;
+		bool dejaVu = false;
 
-		std::getline(line, content); // Skip the header line
 		while(std::getline(line, content)) {
+			if (content.empty())
+				continue; // Skip empty lines or header line
+			if (content.compare("date,exchange_rate") == 0 && dejaVu == false) {
+				dejaVu = true;
+				continue;
+			}
+			else if (content.compare("date,exchange_rate") == 0 && dejaVu == true)
+				throw std::invalid_argument("Error: Invalid header line in database.");
 			std::size_t pos = content.find(",");
 	
 			if (pos == std::string::npos)

@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/04 11:09:49 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:01:15 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ void BitcoinExchange::loadDatabase(std::string filename) {
 
 void BitcoinExchange::processLine(std::ifstream &filename) {
 	std::string content;
-	
+	bool header = false;
 	while(std::getline(filename, content)) {
-
+		if (utils::trim(content).compare("date | value") == 0 && !header) {
+			header = true;
+			continue;
+		} else if (utils::trim(content).compare("date | value") == 0 && header) {
+			std::cerr << RED << "Error: Invalid header line in input file." << RESET << std::endl;
+			continue;
+		}
 		if (utils::invalidDate(content))
 			continue;
 		if (utils::invalidValue(content))
@@ -69,17 +75,17 @@ void BitcoinExchange::getExchangeRate(const std::string &date, double value) con
 	if (it->first != date) {
 		
 		if (date > _exchangeRates.rbegin()->first) {
-			std::cout << std::fixed << std::setprecision(2) << date << " => " << value * _exchangeRates.rbegin()->second << std::endl;
+			std::cout << std::fixed << std::setprecision(2) << date << " => " << value * _exchangeRates.rbegin()->second << " 💲" << std::endl;
 			return;
 		}		
 		if (it == _exchangeRates.begin()) {
-			std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
+			std::cerr << RED << "Error: No exchange rate found for date => " << date << RESET << std::endl;
 			return;
 		}
 		--it;
 	}
 	double exchangeRate = it->second;
-	std::cout << std::fixed << std::setprecision(2) << date << " => " << value * exchangeRate << std::endl;
+	std::cout << std::fixed << std::setprecision(2) << date << " => " << value * exchangeRate << " 💲" << std::endl;
 	
 }
 
