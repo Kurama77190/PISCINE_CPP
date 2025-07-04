@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/04 12:01:15 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:08:28 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ BitcoinExchange::BitcoinExchange() {}
 
 BitcoinExchange::~BitcoinExchange() {}
 
-// BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {
+	*this = src;
+}
 
-// BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &rhs) {}
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &rhs) {
+	if (this != &rhs) {
+		this->_exchangeRates = rhs._exchangeRates;
+	}
+	return *this;
+}
 
 void BitcoinExchange::loadDatabase(std::string filename) {
 	//open database data.csv
