@@ -17,12 +17,14 @@
 
 class RPN {
 public:
-	RPN( std::string input );
+	RPN( void );
 	~RPN( void );
 	RPN( const RPN &other );
 	RPN &operator=( const RPN &other );
 
 	void evaluate(std::string const &input);
+	int applyOperation(int a, int b, char op);
+	void displayStack() const;
 private:
 	std::stack<int> _stack;
 };
