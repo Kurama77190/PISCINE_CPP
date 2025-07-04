@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:05:00 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 21:22:22 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:09:49 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ void BitcoinExchange::processLine(std::ifstream &filename) {
 
 void BitcoinExchange::getExchangeRate(const std::string &date, double value) const {
 	std::map<std::string, double>::const_iterator it = _exchangeRates.lower_bound(date);
-	if (it == _exchangeRates.end()) {
-		std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
-		return;
-	}
 	if (it->first != date) {
+		
+		if (date > _exchangeRates.rbegin()->first) {
+			std::cout << std::fixed << std::setprecision(2) << date << " => " << value * _exchangeRates.rbegin()->second << std::endl;
+			return;
+		}		
 		if (it == _exchangeRates.begin()) {
 			std::cerr << "Error: No exchange rate found for date: " << date << std::endl;
 			return;

@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/03 21:38:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:48:51 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ namespace utils {
 		int month = std::atoi(date.substr(5, 2).c_str());
 		int day = std::atoi(date.substr(8, 2).c_str());
 
-		if (year < 2009 || year > 2023) {
+		if (year < 2009 || year > 2025) {
 			std::cerr << "Error: Year out of range: " << year << " in line : " << content << std::endl;
 			return true;
 		}
