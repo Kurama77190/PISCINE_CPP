@@ -1,0 +1,12 @@
+containner : deque et vector : 
+
+astuce :
+
+https://en.wikipedia.org/wiki/Merge-insertion_sort
+
+https://warwick.ac.uk/fac/sci/dcs/teaching/material-archive/cs341/fj.pdf
+
+https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
+
+
+-name : knuth's ford johnson algorithm
