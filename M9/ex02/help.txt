@@ -8,5 +8,6 @@ https://warwick.ac.uk/fac/sci/dcs/teaching/material-archive/cs341/fj.pdf
 
 https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 
+https://docs.google.com/document/d/1JzVJqwCcglhiE9nqXWdi68Wpu_5xkLf3xT6lvdjNPPo/edit?usp=sharing
 
 -name : knuth's ford johnson algorithm
