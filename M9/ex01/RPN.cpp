@@ -6,11 +6,12 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:22:47 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/04 23:14:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:38:29 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+#include <cerrno>
 
 RPN::RPN( void ) {}
 
@@ -34,8 +35,10 @@ void RPN::evaluate(std::string const &input) {
 	while ( iss >> token) {
 		char *check;
 
+		// std::cout << "Processing token: " << token << std::endl;
 		if (std::isdigit(token[0]) && token.size() == 1) {
-			_stack.push(std::strtol(token.c_str(), &check, 10));
+			errno = 0;
+			_stack.push(std::strtod(token.c_str(), &check));
 			if (*check) {
 				throw std::invalid_argument("Error: not enough operands: " + token);
 			}
@@ -46,6 +49,8 @@ void RPN::evaluate(std::string const &input) {
 			int result = applyOperation(b, a, token[0]);
 			_stack.push(result);
 		}
+		else
+			throw std::invalid_argument("Error");
 	}
 	if (_stack.size() != 1) {
 		throw std::runtime_error("Error");
