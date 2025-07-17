@@ -6,12 +6,13 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:22:47 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/10 14:38:29 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:36:28 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 #include <cerrno>
+#include <iomanip>
 
 RPN::RPN( void ) {}
 
@@ -35,7 +36,6 @@ void RPN::evaluate(std::string const &input) {
 	while ( iss >> token) {
 		char *check;
 
-		// std::cout << "Processing token: " << token << std::endl;
 		if (std::isdigit(token[0]) && token.size() == 1) {
 			errno = 0;
 			_stack.push(std::strtod(token.c_str(), &check));
@@ -44,9 +44,9 @@ void RPN::evaluate(std::string const &input) {
 			}
 		}
 		else if (_stack.size() > 1 && std::string("+-*/").find(token[0]) != std::string::npos) {
-			int a = _stack.top(); _stack.pop();
-			int b = _stack.top(); _stack.pop();
-			int result = applyOperation(b, a, token[0]);
+			double a = _stack.top(); _stack.pop();
+			double b = _stack.top(); _stack.pop();
+			double result = applyOperation(b, a, token[0]);
 			_stack.push(result);
 		}
 		else
@@ -57,7 +57,7 @@ void RPN::evaluate(std::string const &input) {
 	}
 }
 
-int RPN::applyOperation(int a, int b, char op) {
+double RPN::applyOperation(double a, double b, char op) {
 	if (op == '+') {
 		return a + b;
 	} else if (op == '-') {
@@ -75,7 +75,7 @@ int RPN::applyOperation(int a, int b, char op) {
 }
 
 void RPN::displayStack() const {
-	std::stack<int> temp = _stack;
+	std::stack<double> temp = _stack;
 	while (!temp.empty()) {
 		std::cout << temp.top() << " ";
 		temp.pop();

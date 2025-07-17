@@ -17,16 +17,16 @@
 
 class RPN {
 public:
+
 	RPN( void );
 	~RPN( void );
-	RPN( const RPN &other );
-	RPN &operator=( const RPN &other );
-
 	void evaluate(std::string const &input);
-	int applyOperation(int a, int b, char op);
+	double applyOperation(double a, double b, char op);
 	void displayStack() const;
 private:
-	std::stack<int> _stack;
+	std::stack<double> _stack;
+	RPN( const RPN &other );
+	RPN &operator=( const RPN &other );
 };
 
 #endif
