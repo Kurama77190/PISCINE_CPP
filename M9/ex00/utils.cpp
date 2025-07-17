@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/04 11:58:33 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:45:08 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ namespace utils {
 				throw std::invalid_argument("Error: Invalid line format in database.");
 			
 			std::string key = utils::trim(content.substr(0, pos));
-			if (key.empty() || key.size() != 10)
+			if (key.empty() || key.size() != 10 || utils::invalidDate(key))
 				throw std::invalid_argument("Error: Invalid date format in database: " + key);
 			std::string value = utils::trim(content.substr(pos + 1));
 			if (value.empty())
