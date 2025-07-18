@@ -6,28 +6,13 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/18 19:11:30 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:57:35 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe( const std::vector<int>& input ) {
-	if (input.empty()) {
-		throw std::invalid_argument("Input vector is empty");
-	}
-	_vecTmp = input;
-	sortVector(_vecTmp);
-}
-
-PmergeMe::PmergeMe( const std::deque<int>& input ) {
-	if (input.empty()) {
-		throw std::invalid_argument("Input deque is empty");
-	}
-	
-	_deqTmp = input;
-	sortDeque(_deqTmp);
-}
+PmergeMe::PmergeMe() {}
 
 PmergeMe::~PmergeMe( void ) {  }
 
@@ -44,6 +29,10 @@ void PmergeMe::sortVector( std::vector<int>& vec ) {
 	if (vec.empty()) {
 		throw std::invalid_argument("Vector is empty");
 	}
+	std::cout << "Before ";
+	display(vec);
+	_vecTmp.clear(); // Clear the temporary vector before sorting
+	_vecTmp = vec; // Copy the input vector to the temporary vector
 	int straggler;
 	//etape 1
 	std::vector<std::pair<int , int> > pair = createSortedPairsVec(vec, straggler);
@@ -57,6 +46,8 @@ void PmergeMe::sortVector( std::vector<int>& vec ) {
 	}
 	_vecTmp = mainChain; // Mettre à jour le vecteur temporaire avec le résultat trié
 	//displayResult(_vecTmp); // Afficher le résultat trié
+	std::cout << "After ";
+	display(_vecTmp);
 	if (isSorted(_vecTmp))
 		std::cout << "Vector is sorted.✅ " << std::endl;
 	else
@@ -67,19 +58,24 @@ void PmergeMe::sortDeque( std::deque<int>& deq ) {
 	if (deq.empty()) {
 		throw std::invalid_argument("Deque is empty");
 	}
+	std::cout << "Before ";
+	display(deq);
+	_deqTmp.clear(); // Clear the temporary deque before sorting
+	_deqTmp = deq; // Copy the input deque to the temporary deque
 	int straggler;
-	//etape 1
+	//STAPE 1
 	std::deque<std::pair<int , int> > pair = createSortedPairsDeq(deq, straggler);
-	//etape 2
+	//STAPE 2
 	std::deque<int> mainChain = buildAndSortMainChainDeq(pair);
-	//etape 3
+	//STAPE 3
 	insertPendingElements(pair, mainChain);
-	//etape 4bis
+	//STAPE 3bis
 	if (straggler != -1) {
 		insertStraggler(straggler, mainChain);
 	}
 	_deqTmp = mainChain; // Mettre à jour la deque temporaire avec le résultat trié	
-	//displayResult(_deqTmp); // Afficher le résultat trié
+	std::cout << "After ";
+	display(_deqTmp);
 	if (isSorted(_deqTmp))
 		std::cout << "Deque is sorted.✅ " << std::endl;
 	else
@@ -208,20 +204,22 @@ void PmergeMe::insertStraggler(int straggler, std::deque<int>& mainChain) {
 	mainChain.insert(pos, straggler);
 }
 
-void PmergeMe::displayResult( const std::vector<int>& result ) {
-std::vector<int>::const_iterator it = result.begin();
-	std::cout << "Sorted Vector: ";
-	for (; it != result.end(); ++it) {
-		std::cout << *it << " ";
+void PmergeMe::validateInput( const std::string& input ) {
+	if (input.empty()) {
+		throw std::invalid_argument("Input cannot be empty");
 	}
-	std::cout << std::endl;	
-}
 
-void PmergeMe::displayResult( const std::deque<int>& result ) {
-	std::deque<int>::const_iterator it = result.begin();
-	std::cout << "Sorted Deque: ";
-	for (; it != result.end(); ++it) {
-		std::cout << *it << " ";
+	for (size_t i = 0; i < input.size(); ++i) {
+		if (!std::isdigit(input[i]) && input[i] != ' ') {
+			throw std::invalid_argument("Input contains invalid characters");
+		}
 	}
-	std::cout << std::endl;
+
+	std::istringstream iss(input);
+	int number;
+	while (iss >> number) {
+		if (number < 0) {
+			throw std::invalid_argument("Negative numbers are not allowed");
+		}
+	}
 }

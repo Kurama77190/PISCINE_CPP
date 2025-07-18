@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:03:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/18 19:10:13 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:53:24 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ class PmergeMe {
 
 	public:
 
-		PmergeMe( const std::vector<int>& input );
-		PmergeMe( const std::deque<int>& input );
+		PmergeMe( void );
 		~PmergeMe( void );
 		PmergeMe( const PmergeMe &other );
 		PmergeMe &operator=( const PmergeMe &other );
 		
 		void sortVector( std::vector<int>& vec );
 		void sortDeque( std::deque<int>& deq );
+
+		static void validateInput( const std::string& input );
 
 	private:
 		std::vector<int> _vecTmp;
@@ -58,11 +59,6 @@ class PmergeMe {
 		void insertStraggler(int straggler, std::vector<int>& mainChain);
 		void insertStraggler(int straggler, std::deque<int>& mainChain);
 
-		//void validateInput( const std::string& input );
-		//std::vector<int> parseInput( const std::string& input );
-		
-		void displayResult( const std::vector<int>& result );
-		void displayResult( const std::deque<int>& result );
 };
 
 template <typename Container>
@@ -81,6 +77,20 @@ bool isSorted(const Container& container) {
 		++next;
 	}
 	return true;
+}
+
+template <typename Container>
+void display(const Container& result) {
+	if (result.empty()) {
+		std::cout << "Container is empty." << std::endl;
+		return;
+	}
+
+	typename Container::const_iterator it = result.begin(); // ✅ CORRECT
+	for (; it != result.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
 }
 
 
