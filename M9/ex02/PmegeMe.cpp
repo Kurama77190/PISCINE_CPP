@@ -6,15 +6,29 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/18 19:57:35 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:28:10 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() {}
+PmergeMe::PmergeMe() {
+	_vecTmp.clear();
+	_deqTmp.clear();
+	_startTime = clock();
+}
 
-PmergeMe::~PmergeMe( void ) {  }
+PmergeMe::~PmergeMe( void ) {
+	_endTime = clock();
+	double timeTaken = static_cast<double>(_endTime - _startTime) / CLOCKS_PER_SEC;
+	timeTaken *= 1e6;
+	if (!_vecTmp.empty())
+		std::cout << std::fixed << std::setprecision(5) << "Time to process a range of " << _vecTmp.size() << " elements with std::vector : " << timeTaken << " us" << std::endl;
+	if (!_deqTmp.empty())
+		std::cout << std::fixed << std::setprecision(5) << "Time to process a range of " << _deqTmp.size() << " elements with std::deque : " << timeTaken << " us" << std::endl;
+	_vecTmp.clear();
+	_deqTmp.clear();
+}
 
 PmergeMe::PmergeMe( const PmergeMe &other ) {
 	PmergeMe::operator=(other);
@@ -31,7 +45,6 @@ void PmergeMe::sortVector( std::vector<int>& vec ) {
 	}
 	std::cout << "Before ";
 	display(vec);
-	_vecTmp.clear(); // Clear the temporary vector before sorting
 	_vecTmp = vec; // Copy the input vector to the temporary vector
 	int straggler;
 	//etape 1
@@ -49,9 +62,9 @@ void PmergeMe::sortVector( std::vector<int>& vec ) {
 	std::cout << "After ";
 	display(_vecTmp);
 	if (isSorted(_vecTmp))
-		std::cout << "Vector is sorted.✅ " << std::endl;
+		std::cout << " ✅" << std::endl;
 	else
-		std::cout << "Vector is not sorted.⛔" << std::endl;
+		std::cout << " ⛔" << std::endl;
 }
 
 void PmergeMe::sortDeque( std::deque<int>& deq ) {
@@ -60,7 +73,6 @@ void PmergeMe::sortDeque( std::deque<int>& deq ) {
 	}
 	std::cout << "Before ";
 	display(deq);
-	_deqTmp.clear(); // Clear the temporary deque before sorting
 	_deqTmp = deq; // Copy the input deque to the temporary deque
 	int straggler;
 	//STAPE 1
@@ -77,9 +89,9 @@ void PmergeMe::sortDeque( std::deque<int>& deq ) {
 	std::cout << "After ";
 	display(_deqTmp);
 	if (isSorted(_deqTmp))
-		std::cout << "Deque is sorted.✅ " << std::endl;
+		std::cout << " ✅" << std::endl;
 	else
-		std::cout << "Deque is not sorted.⛔" << std::endl;
+		std::cout << " ⛔" << std::endl;
 }
 
 std::vector<std::pair<int, int> > PmergeMe::createSortedPairsVec(std::vector<int>& vec, int& straggler) {

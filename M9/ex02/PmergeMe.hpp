@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:03:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/18 19:53:24 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:27:22 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <limits>
 # include <cstdlib>
 # include <cctype>
+#include <iomanip>
+# include <ctime>
 
 
 class PmergeMe {
@@ -43,7 +45,9 @@ class PmergeMe {
 	private:
 		std::vector<int> _vecTmp;
 		std::deque<int> _deqTmp;
-	
+		clock_t _startTime;
+		clock_t _endTime;
+		
 		std::vector<std::pair<int, int> > createSortedPairsVec(std::vector<int>& vec, int& straggler);
 		std::deque<std::pair<int, int> > createSortedPairsDeq(std::deque<int>& deq, int& straggler);
 		
@@ -90,7 +94,6 @@ void display(const Container& result) {
 	for (; it != result.end(); ++it) {
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
 }
 
 
