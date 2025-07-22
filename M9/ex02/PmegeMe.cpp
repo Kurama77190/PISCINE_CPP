@@ -6,232 +6,183 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/21 17:28:10 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:04:17 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() {
-	_vecTmp.clear();
-	_deqTmp.clear();
-	_startTime = clock();
-}
 
-PmergeMe::~PmergeMe( void ) {
-	_endTime = clock();
-	double timeTaken = static_cast<double>(_endTime - _startTime) / CLOCKS_PER_SEC;
-	timeTaken *= 1e6;
-	if (!_vecTmp.empty())
-		std::cout << std::fixed << std::setprecision(5) << "Time to process a range of " << _vecTmp.size() << " elements with std::vector : " << timeTaken << " us" << std::endl;
-	if (!_deqTmp.empty())
-		std::cout << std::fixed << std::setprecision(5) << "Time to process a range of " << _deqTmp.size() << " elements with std::deque : " << timeTaken << " us" << std::endl;
-	_vecTmp.clear();
-	_deqTmp.clear();
-}
+PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe( const PmergeMe &other ) {
-	PmergeMe::operator=(other);
-}
+PmergeMe::~PmergeMe() {}
 
-PmergeMe& PmergeMe::operator=( const PmergeMe &other ) {
+PmergeMe::PmergeMe(const PmergeMe& other) { *this = other; }
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	(void)other;
 	return *this;
 }
 
-void PmergeMe::sortVector( std::vector<int>& vec ) {
-	if (vec.empty()) {
-		throw std::invalid_argument("Vector is empty");
-	}
-	std::cout << "Before ";
-	display(vec);
-	_vecTmp = vec; // Copy the input vector to the temporary vector
-	int straggler;
-	//etape 1
-	std::vector<std::pair<int , int> > pair = createSortedPairsVec(vec, straggler);
-	//etape 2
-	std::vector<int> mainChain = buildAndSortMainChainVec(pair);
-	//etape 3
-	insertPendingElements(pair, mainChain);
-	//etape 4bis
-	if (straggler != -1) {
-		insertStraggler(straggler, mainChain);
-	}
-	_vecTmp = mainChain; // Mettre à jour le vecteur temporaire avec le résultat trié
-	//displayResult(_vecTmp); // Afficher le résultat trié
-	std::cout << "After ";
-	display(_vecTmp);
-	if (isSorted(_vecTmp))
-		std::cout << " ✅" << std::endl;
-	else
-		std::cout << " ⛔" << std::endl;
+PmergeMe::PmergeMe(const std::vector<unsigned int>& vec, const std::deque<unsigned int>& deq)
+	: _time(0), _start(0), _end(0), _vec(vec), _deq(deq)  {
+	process();
 }
 
-void PmergeMe::sortDeque( std::deque<int>& deq ) {
-	if (deq.empty()) {
-		throw std::invalid_argument("Deque is empty");
-	}
-	std::cout << "Before ";
-	display(deq);
-	_deqTmp = deq; // Copy the input deque to the temporary deque
-	int straggler;
-	//STAPE 1
-	std::deque<std::pair<int , int> > pair = createSortedPairsDeq(deq, straggler);
-	//STAPE 2
-	std::deque<int> mainChain = buildAndSortMainChainDeq(pair);
-	//STAPE 3
-	insertPendingElements(pair, mainChain);
-	//STAPE 3bis
-	if (straggler != -1) {
-		insertStraggler(straggler, mainChain);
-	}
-	_deqTmp = mainChain; // Mettre à jour la deque temporaire avec le résultat trié	
-	std::cout << "After ";
-	display(_deqTmp);
-	if (isSorted(_deqTmp))
-		std::cout << " ✅" << std::endl;
-	else
-		std::cout << " ⛔" << std::endl;
+// ----------------------------- FONCTION PRINCIPALE ------------------------ //
+
+void PmergeMe::process() {
+	std::cout << "Before: ";
+	display(_vec);
+	std::cout << std::endl;
+
+	_start = clock();
+	sort(_vec);
+	_end = clock();
+	_time = static_cast<double>(_end - _start) / CLOCKS_PER_SEC * 1e6;
+	std::cout << "After: ";
+	display(_vec);
+	std::cout << (isSorted(_vec) ? "✅ " : "⛔") << std::endl;
+	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << _time << " us" << std::endl;
+
+	_start = clock();
+	sort(_deq);
+	_end = clock();
+	_time = static_cast<double>(_end - _start) / CLOCKS_PER_SEC * 1e6;
+
+	std::cout << "Time to process a range of " << _deq.size() << " elements with std::deque : " << _time << " us" << std::endl;
 }
 
-std::vector<std::pair<int, int> > PmergeMe::createSortedPairsVec(std::vector<int>& vec, int& straggler) {
-	std::vector<std::pair<int, int> > pairs;
-	straggler = -1;
+// ------------------------------- VECTOR ----------------------------------- //
 
-	// Si taille impaire, on garde le dernier de côté
-	if (vec.size() % 2 != 0) {
-		straggler = vec.back();
-		vec.pop_back();
+void PmergeMe::sort(std::vector<unsigned int>& arr) {
+	if (arr.size() < 2)
+		return;
+
+	// Initialize main chain and pend
+	std::vector<unsigned int> mainChain;
+	std::vector<unsigned int> pend;
+	unsigned int straggler = arr.size() % 2;
+	unsigned int last = 0;
+	unsigned int end = arr.size();
+
+	
+	// step-0 If the size is odd, we take the last element as a straggler
+	if (straggler) {
+		last = arr.back();
+		arr.pop_back();
+		end--;
 	}
 
-	for (size_t i = 0; i < vec.size(); i += 2) {
-		int a = vec[i];
-		int b = vec[i + 1];
-		if (a < b)
-			pairs.push_back(std::make_pair(a, b));
-		else
-			pairs.push_back(std::make_pair(b, a));
-	}
-	return pairs;
-}
-
-std::deque<std::pair<int, int> > PmergeMe::createSortedPairsDeq(std::deque<int>& deq, int& straggler) {
-	std::deque<std::pair<int, int> > pairs;
-	straggler = -1;
-
-	if (deq.size() % 2 != 0) {
-		straggler = deq.back();
-		deq.pop_back();
+	// step-1 Pair elements and create the main chain and pend
+	for (unsigned int i = 0; i < end; i += 2) {
+		unsigned int a = arr[i];
+		unsigned int b = arr[i + 1];
+		mainChain.push_back(std::max(a, b));
+		pend.push_back(std::min(a, b));
 	}
 
-	for (size_t i = 0; i < deq.size(); i += 2) {
-		int a = deq[i];
-		int b = deq[i + 1];
-		if (a < b)
-			pairs.push_back(std::make_pair(a, b));
-		else
-			pairs.push_back(std::make_pair(b, a));
+	// step-2 Recursively sort the main chain
+	sort(mainChain);
+
+	// step-2bis If there was a straggler, add it to pend
+	if (straggler)
+		pend.push_back(last);
+
+
+	// step-3 Use Jacobsthal indexes to insert elements from pend into mainChain
+	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
+	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
+		unsigned int idx = jacobIndexes[i];
+		if (idx >= static_cast<unsigned int>(pend.size())) continue;
+		std::vector<unsigned int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pend[idx]);
+		mainChain.insert(pos, pend[idx]);
 	}
 
-	return pairs;
+	arr = mainChain;
 }
 
-std::vector<int> PmergeMe::buildAndSortMainChainVec(const std::vector<std::pair<int, int> >& pairs) {
-	std::vector<int> mainChain;
-	for (size_t i = 0; i < pairs.size(); ++i) {
-	mainChain.push_back(pairs[i].second); // second = le plus grand de la paire
+// ------------------------------- DEQUE ------------------------------------ //
+
+void PmergeMe::sort(std::deque<unsigned int>& arr) {
+	if (arr.size() < 2)
+		return;
+
+	// Initialize main chain and pend
+	std::deque<unsigned int> mainChain;
+	std::deque<unsigned int> pend;
+	unsigned int straggler = arr.size() % 2;
+	unsigned int last = 0;
+	unsigned int end = arr.size();
+
+	// step-0 If the size is odd, we take the last element as a straggler
+	if (straggler) {
+		last = arr.back();
+		arr.pop_back();
+		end--;
 	}
 
-	// 🔁 Appel récursif pour trier la mainChain (true ford Jonhson)
-	if (mainChain.size() <= 1)
-		return mainChain;
-	return recursiveSortVector(mainChain);
-}
-
-std::deque<int> PmergeMe::buildAndSortMainChainDeq(const std::deque<std::pair<int, int> >& pairs) {
-	std::deque<int> mainChain;
-	for (size_t i = 0; i < pairs.size(); ++i) {
-	mainChain.push_back(pairs[i].second); // second = le plus grand de la paire
+	// step-1 Pair elements and create the main chain and pend
+	for (unsigned int i = 0; i < end; i += 2) {
+		unsigned int a = arr[i];
+		unsigned int b = arr[i + 1];
+		mainChain.push_back(std::max(a, b));
+		pend.push_back(std::min(a, b));
 	}
 
-	// 🔁 Appel récursif pour trier la mainChain (true ford Jonhson)
-	if (mainChain.size() <= 1)
-		return mainChain;
-	return recursiveSortDeque(mainChain);
-}
+	// step-2 Recursively sort the main chain
+	sort(mainChain);
 
-std::vector<int> PmergeMe::recursiveSortVector(std::vector<int>& vec) {
-	if (vec.size() <= 1)
-		return vec;
+	// step-2bis If there was a straggler, add it to pend
+	if (straggler)
+		pend.push_back(last);
 
-	int straggler;
-	std::vector<std::pair<int, int> > pairs = createSortedPairsVec(vec, straggler);
-	std::vector<int> mainChain = buildAndSortMainChainVec(pairs);
-	insertPendingElements(pairs, mainChain);
-	if (straggler != -1)
-		insertStraggler(straggler, mainChain);
-	return mainChain;
-}
-
-std::deque<int> PmergeMe::recursiveSortDeque(std::deque<int>& vec) {
-	if (vec.size() <= 1)
-		return vec;
-
-	int straggler;
-	std::deque<std::pair<int, int> > pairs = createSortedPairsDeq(vec, straggler);
-	std::deque<int> mainChain = buildAndSortMainChainDeq(pairs);
-	insertPendingElements(pairs, mainChain);
-	if (straggler != -1)
-		insertStraggler(straggler, mainChain);
-	return mainChain;
-}
-
-void PmergeMe::insertPendingElements(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain) {
-	for (size_t i = 0; i < pairs.size(); ++i) {
-		int toInsert = pairs[i].first;
-
-		// Insertion par recherche de la bonne position (tri par insertion)
-		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), toInsert);
-		mainChain.insert(pos, toInsert);
-	}
-}
-
-void PmergeMe::insertPendingElements(const std::deque<std::pair<int, int> >& pairs, std::deque<int>& mainChain) {
-	for (size_t i = 0; i < pairs.size(); ++i) {
-		int toInsert = pairs[i].first;
-
-		// Insertion par recherche de la bonne position (tri par insertion)
-		std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), toInsert);
-		mainChain.insert(pos, toInsert);
-	}
-}
-
-void PmergeMe::insertStraggler(int straggler, std::vector<int>& mainChain) {
-	std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-	mainChain.insert(pos, straggler);
-}
-
-void PmergeMe::insertStraggler(int straggler, std::deque<int>& mainChain) {
-	std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-	mainChain.insert(pos, straggler);
-}
-
-void PmergeMe::validateInput( const std::string& input ) {
-	if (input.empty()) {
-		throw std::invalid_argument("Input cannot be empty");
+	// step-3 Use Jacobsthal indexes to insert elements from pend into mainChain
+	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
+	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
+		unsigned int idx = jacobIndexes[i];
+		if (idx >= static_cast<unsigned int>(pend.size())) continue;
+		std::deque<unsigned int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pend[idx]);
+		mainChain.insert(pos, pend[idx]);
 	}
 
-	for (size_t i = 0; i < input.size(); ++i) {
-		if (!std::isdigit(input[i]) && input[i] != ' ') {
-			throw std::invalid_argument("Input contains invalid characters");
+	arr = mainChain;
+}
+
+// ------------------------------- TOOLS ------------------------------------ //
+
+template <typename Container>
+bool isSorted(const Container& cont) {
+	for (size_t i = 1; i < cont.size(); ++i) {
+		if (cont[i - 1] > cont[i])
+			return false;
+	}
+	return true;
+}
+
+template <typename Container>
+void display(const Container& cont) {
+	for (typename Container::const_iterator it = cont.begin(); it != cont.end(); ++it)
+		std::cout << *it << " ";
+}
+
+std::vector<unsigned int> getJacobsthalIndexes(unsigned int size) {
+	std::vector<unsigned int> index;
+	std::vector<bool> seen(size, false);
+	unsigned int i = 0;
+	unsigned int j = 1;
+	while (j < size) {
+		if (!seen[j]) {
+			index.push_back(j);
+			seen[j] = true;
 		}
+		unsigned int next = j + 2 * i;
+		i = j;
+		j = next;
 	}
-
-	std::istringstream iss(input);
-	int number;
-	while (iss >> number) {
-		if (number < 0) {
-			throw std::invalid_argument("Negative numbers are not allowed");
-		}
+	for (unsigned int k = 0; k < size; ++k) {
+		if (!seen[k])
+			index.push_back(k);
 	}
+	return index;
 }

@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:03:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/21 17:27:22 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/22 11:40:26 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,72 +29,40 @@
 
 
 class PmergeMe {
+public:
 
-	public:
+PmergeMe(const std::vector<unsigned int>& vec, const std::deque<unsigned int>& deq);
+~PmergeMe();
 
-		PmergeMe( void );
-		~PmergeMe( void );
-		PmergeMe( const PmergeMe &other );
-		PmergeMe &operator=( const PmergeMe &other );
-		
-		void sortVector( std::vector<int>& vec );
-		void sortDeque( std::deque<int>& deq );
+void process();
 
-		static void validateInput( const std::string& input );
+private:
 
-	private:
-		std::vector<int> _vecTmp;
-		std::deque<int> _deqTmp;
-		clock_t _startTime;
-		clock_t _endTime;
-		
-		std::vector<std::pair<int, int> > createSortedPairsVec(std::vector<int>& vec, int& straggler);
-		std::deque<std::pair<int, int> > createSortedPairsDeq(std::deque<int>& deq, int& straggler);
-		
-		std::vector<int> buildAndSortMainChainVec(const std::vector<std::pair<int, int> >& pairs);
-		std::deque<int> buildAndSortMainChainDeq(const std::deque<std::pair<int, int> >& pairs);
-		
-		void insertPendingElements(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain); //  la suite Jacobsthal
-		void insertPendingElements(const std::deque<std::pair<int, int> >& pairs, std::deque<int>& mainChain); // ...
-		
-		std::vector<int> recursiveSortVector(std::vector<int>& vec);
-		std::deque<int> recursiveSortDeque(std::deque<int>& vec);
+double _time;
+clock_t _start;
+clock_t _end;
 
-		void insertStraggler(int straggler, std::vector<int>& mainChain);
-		void insertStraggler(int straggler, std::deque<int>& mainChain);
+std::vector<unsigned int> _vec;
+std::deque<unsigned int>  _deq;
+
+void sort(std::vector<unsigned int>& arr);
+void sort(std::deque<unsigned int>& arr);
+
+PmergeMe();
+PmergeMe(const PmergeMe& other);
+PmergeMe& operator=(const PmergeMe& other);
 
 };
 
-template <typename Container>
-bool isSorted(const Container& container) {
-	if (container.empty())
-		return true;
-
-	typename Container::const_iterator it = container.begin();
-	typename Container::const_iterator next = it;
-	++next;
-
-	while (next != container.end()) {
-		if (*next < *it)
-			return false;
-		++it;
-		++next;
-	}
-	return true;
-}
+// ----------------------------- OUTILS GLOBAUX ----------------------------- //
 
 template <typename Container>
-void display(const Container& result) {
-	if (result.empty()) {
-		std::cout << "Container is empty." << std::endl;
-		return;
-	}
+bool isSorted(const Container& cont);
 
-	typename Container::const_iterator it = result.begin(); // ✅ CORRECT
-	for (; it != result.end(); ++it) {
-		std::cout << *it << " ";
-	}
-}
+template <typename Container>
+void display(const Container& cont);
+
+std::vector<unsigned int> getJacobsthalIndexes(unsigned int size);
 
 
 #endif
