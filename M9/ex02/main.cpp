@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:22:54 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/23 20:10:16 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:53:47 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "PmergeMe.hpp"
 
 int main(int argc, char **argv) {
-	if (argc < 2) {
+	if (argc <= 2) {
 		std::cerr << "Usage: " << argv[0] << " <numbers>" << std::endl;
 		return 1;
 	}
