@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/22 12:04:17 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:10:32 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,4 +185,24 @@ std::vector<unsigned int> getJacobsthalIndexes(unsigned int size) {
 			index.push_back(k);
 	}
 	return index;
+}
+
+void parseInput(int argc, char **argv) {
+	if (argc == 2) {
+	}
+	if (argc > 2) {
+		for (int i = 1; argv[i]; i++) {
+			std::string arg = std::string(argv[i]);
+			for (int j = 0; argv[i][j]; j++) {
+				if (arg.empty() || !std::isdigit(argv[i][j]))
+					throw std::invalid_argument("Invalid arguments");
+			}
+			double tmp;
+			char *check;
+			if (arg.size() > 10 || (tmp = std::strtod(arg.c_str(), &check)) > 2147483647)
+				throw std::out_of_range("Overflow detected");
+			if (*check)
+				throw std::invalid_argument("Invalid argument: " + arg);
+		}
+	}
 }

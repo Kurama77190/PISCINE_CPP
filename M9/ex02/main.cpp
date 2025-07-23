@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:22:54 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/22 11:16:32 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:10:16 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int main(int argc, char **argv) {
 	
 	try {
 		
-		//for (int i = 1; i < argc; ++i)
-			//PmergeMe::validateInput(argv[i]);
-		
+		parseInput(argc, argv);
+
 		std::vector<unsigned int> inputVec;
 		for (int i = 1; i < argc; ++i) {
 			inputVec.push_back(std::atoi(argv[i]));
@@ -36,7 +35,7 @@ int main(int argc, char **argv) {
 		PmergeMe data(inputVec, inputDeq);
 
 	}
-	catch (const std::invalid_argument& e) {
+	catch (const std::exception& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 		return 1;
 	}

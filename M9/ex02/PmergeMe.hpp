@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:03:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/22 11:40:26 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:08:37 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@
 # include <limits>
 # include <cstdlib>
 # include <cctype>
-#include <iomanip>
+# include <iomanip>
+# include <functional>
 # include <ctime>
-
+# include <iterator>
+# include <numeric>
+# include <cmath>
+# include <string>
 
 class PmergeMe {
 public:
@@ -63,6 +67,8 @@ template <typename Container>
 void display(const Container& cont);
 
 std::vector<unsigned int> getJacobsthalIndexes(unsigned int size);
+
+void parseInput(int argc, char **argv);
 
 
 #endif
