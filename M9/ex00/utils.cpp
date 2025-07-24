@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:18:55 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/17 18:45:08 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:56:35 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,9 @@
 
 #define RED "\033[31m"
 #define RESET "\033[0m"
+
 namespace utils {
 		
-	/*
-	* Checks if the given string has a ".txt" suffix.
-	*
-	* str: The string to check.
-	*
-	* returns: true if the string ends with ".txt", otherwise throws an exception.
-	*/
 	bool postFix(const std::string &str) {
 		if (str.substr(str.size() - 4) != ".txt")
 			throw std::runtime_error("Invalid file extension: " + str);
@@ -91,7 +85,6 @@ namespace utils {
 		}
 		return false;
 	}
-
 
 	bool invalidValue(const std::string &content) {
 		std::string valueStr = utils::trim(content.substr(content.find('|') + 1, content.size()));
@@ -156,6 +149,5 @@ namespace utils {
 			return ""; // String is empty or contains only whitespace
 		return str.substr(first, last - first + 1);
 	}
-
 }
 

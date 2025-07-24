@@ -6,12 +6,11 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/24 14:32:18 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:48:40 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-
 
 PmergeMe::PmergeMe() {}
 
@@ -20,7 +19,13 @@ PmergeMe::~PmergeMe() {}
 PmergeMe::PmergeMe(const PmergeMe& other) { *this = other; }
 
 PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
-	(void)other;
+	if (this != &other) {
+		_time = other._time;
+		_start = other._start;
+		_end = other._end;
+		_vec = other._vec;
+		_deq = other._deq;
+	}
 	return *this;
 }
 
@@ -40,17 +45,21 @@ void PmergeMe::process() {
 	sort(_vec);
 	_end = clock();
 	_time = static_cast<double>(_end - _start) / CLOCKS_PER_SEC * 1e6;
+
 	std::cout << "After: ";
 	display(_vec);
-	std::cout << (isSorted(_vec) ? "✅ " : "⛔") << std::endl;
-	std::cout << "Time to process a range of " << _vec.size() << " elements with std::vector : " << _time << " us" << std::endl;
+	std::cout << (isSorted(_vec) ? " ✅" : " ⛔") << std::endl;
+
+	std::cout << "🕐 Time to process a range of " << _vec.size()
+	          << " elements with std::vector : " << _time << " us" << std::endl;
 
 	_start = clock();
 	sort(_deq);
 	_end = clock();
 	_time = static_cast<double>(_end - _start) / CLOCKS_PER_SEC * 1e6;
 
-	std::cout << "Time to process a range of " << _deq.size() << " elements with std::deque : " << _time << " us" << std::endl;
+	std::cout << "🕐 Time to process a range of " << _deq.size()
+	          << " elements with std::deque : " << _time << " us" << std::endl;
 }
 
 // ------------------------------- VECTOR ----------------------------------- //
@@ -59,10 +68,9 @@ void PmergeMe::sort(std::vector<unsigned int>& arr) {
 	if (arr.size() < 2)
 		return;
 
-	// -------------------------------------
-	// Step 0 : Détection du straggler (optionnel)
-	// -------------------------------------
-	
+	// --------------------------------------------------
+	// Step 0 : Detection of straggler and initialization
+	// --------------------------------------------------
 	unsigned int stragglerExists = arr.size() % 2;
 	unsigned int straggler = 0;
 	unsigned int end = arr.size();
@@ -73,52 +81,39 @@ void PmergeMe::sort(std::vector<unsigned int>& arr) {
 		end--;
 	}
 
-	// -------------------------------------
-	// Step 1 : Création des paires (min, max)
-	// -------------------------------------
-	
+	// ------------------------------
+	// Step 1 : make pairs (min, max)
+	// ------------------------------
+	std::vector<unsigned int> mainChain;
+	std::vector<unsigned int> pend;
+
 	std::deque<std::pair<unsigned int, unsigned int> > pairs;
 	for (unsigned int i = 0; i < end; i += 2) {
 		unsigned int a = arr[i];
 		unsigned int b = arr[i + 1];
-		pairs.push_back(std::make_pair(std::min(a, b), std::max(a, b)));
+		mainChain.push_back(std::max(a, b));
+		pend.push_back(std::min(a, b));
 	}
 	
 	// -------------------------------------
-	// Step 2 : Extraction des "max" → mainChain
+	// Step 2 : Recursive sort of mainChain
 	// -------------------------------------
-	
-	std::vector<unsigned int> mainChain;
-	for (unsigned int i = 0; i < pairs.size(); ++i)
-		mainChain.push_back(pairs[i].second);
-
-	// -------------------------------------
-	// Step 3 : Tri récursif de la mainChain
-	// (ne modifie pas les paires originales)
-	// -------------------------------------
-	
 	sort(mainChain);
 
-	// -------------------------------------
-	// Step 4 : Ajouter le straggler dans pend si présent (optionnel)
-	// -------------------------------------
-	
-	std::vector<unsigned int> pend;
-	for (unsigned int i = 0; i < pairs.size(); ++i)
-		pend.push_back(pairs[i].first);
+	// ----------------------------------------
+	// Step 3 : Add straggler to pend if exists
+	// ----------------------------------------
 	if (stragglerExists)
 		pend.push_back(straggler);
 
-	// -------------------------------------
-	// Step 5 : Génération des indices Jacobsthal
-	// -------------------------------------
-	
+	// ---------------------------------------------------
+	// Step 4 : Index generator's Jacobsthal for insertion
+	// ---------------------------------------------------
 	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
 
-	// -------------------------------------
-	// Step 6 : Insertion des pend dans la mainChain
-	// -------------------------------------
-	
+	// ------------------------------------
+	// Step 5 : Insert pend into mainChain
+	// ------------------------------------	
 	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
 		unsigned int idx = jacobIndexes[i];
 		if (idx >= pend.size()) continue;
@@ -127,13 +122,11 @@ void PmergeMe::sort(std::vector<unsigned int>& arr) {
 		mainChain.insert(pos, pend[idx]);
 	}
 
-	// -------------------------------------
-	// Step 7 : Mise à jour du tableau d'origine
-	// -------------------------------------
-	
+	// -----------------------------------
+	// Step 6 : Update the original array
+	// -----------------------------------
 	arr = mainChain;
 }
-
 
 // ------------------------------- DEQUE ------------------------------------ //
 
@@ -141,10 +134,9 @@ void PmergeMe::sort(std::deque<unsigned int>& arr) {
 	if (arr.size() < 2)
 		return;
 
-	// -------------------------------------
-	// Step 0 : Détection du straggler
-	// -------------------------------------
-	
+	// --------------------------------------------------
+	// Step 0 : Detection of straggler and initialization
+	// --------------------------------------------------
 	unsigned int stragglerExists = arr.size() % 2;
 	unsigned int straggler = 0;
 	unsigned int end = arr.size();
@@ -155,52 +147,38 @@ void PmergeMe::sort(std::deque<unsigned int>& arr) {
 		end--;
 	}
 
-	// -------------------------------------
-	// Step 1 : Création des paires (min, max)
-	// -------------------------------------
+	// ------------------------------
+	// Step 1 : make pairs (min, max)
+	// ------------------------------
+	std::deque<unsigned int> mainChain;
+	std::deque<unsigned int> pend;
 	
 	std::deque<std::pair<unsigned int, unsigned int> > pairs;
 	for (unsigned int i = 0; i < end; i += 2) {
 		unsigned int a = arr[i];
 		unsigned int b = arr[i + 1];
-		pairs.push_back(std::make_pair(std::min(a, b), std::max(a, b)));
+		mainChain.push_back(std::max(a, b));
+		pend.push_back(std::min(a, b));
 	}
-
 	// -------------------------------------
-	// Step 2 : Extraction des "max" → mainChain
+	// Step 2 : Recursive sort of mainChain
 	// -------------------------------------
-	
-	std::deque<unsigned int> mainChain;
-	for (unsigned int i = 0; i < pairs.size(); ++i)
-		mainChain.push_back(pairs[i].second);
-
-	// -------------------------------------
-	// Step 3 : Tri récursif de la mainChain
-	// (ne modifie pas les paires originales)
-	// -------------------------------------
-	
 	sort(mainChain);
 
-	// -------------------------------------
-	// Step 4 : Ajouter le straggler dans pend si présent
-	// -------------------------------------
-	
-	std::deque<unsigned int> pend;
-	for (unsigned int i = 0; i < pairs.size(); ++i)
-		pend.push_back(pairs[i].first);
+	// ----------------------------------------
+	// Step 3 : Add straggler to pend if exists
+	// ----------------------------------------
 	if (stragglerExists)
 		pend.push_back(straggler);
 
-	// -------------------------------------
-	// Step 5 : Génération des indices Jacobsthal
-	// -------------------------------------
-	
+	// ---------------------------------------------------
+	// Step 4 : Index generator's Jacobsthal for insertion
+	// ---------------------------------------------------
 	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
 
-	// -------------------------------------
-	// Step 6 : Insertion des pend dans la mainChain
-	// -------------------------------------
-	
+	// ------------------------------------
+	// Step 5 : Insert pend into mainChain
+	// ------------------------------------
 	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
 		unsigned int idx = jacobIndexes[i];
 
@@ -208,16 +186,18 @@ void PmergeMe::sort(std::deque<unsigned int>& arr) {
 		mainChain.insert(pos, pend[idx]);
 	}
 
-	// -------------------------------------
-	// Step 7 : Mise à jour du tableau d'origine
-	// -------------------------------------
-	
+	// ----------------------------------
+	// Step 6 : Update the original array
+	// ----------------------------------
 	arr = mainChain;
 }
 
-
 // ------------------------------- TOOLS ------------------------------------ //
 
+/*
+ * Check if a container is sorted in ascending order
+ * returns true if sorted, false otherwise.
+ */
 template <typename Container>
 bool isSorted(const Container& cont) {
 	for (size_t i = 1; i < cont.size(); ++i) {
@@ -227,12 +207,20 @@ bool isSorted(const Container& cont) {
 	return true;
 }
 
+/*
+ * Display the elements of a container
+ * Prints each element followed by a space.
+ */
 template <typename Container>
 void display(const Container& cont) {
 	for (typename Container::const_iterator it = cont.begin(); it != cont.end(); ++it)
 		std::cout << *it << " ";
 }
 
+/*
+ * Generate Jacobsthal indices for a given size
+ * - Returns a vector of indices that follow the Jacobsthal sequence.
+ */
 std::vector<unsigned int> getJacobsthalIndexes(unsigned int size) {
 	std::vector<unsigned int> index;
 	std::vector<bool> seen(size, false);
@@ -254,6 +242,10 @@ std::vector<unsigned int> getJacobsthalIndexes(unsigned int size) {
 	return index;
 }
 
+/*
+ * Validates that all arguments are positive integers and within range.
+ * - Throws exceptions for invalid or out-of-range inputs.
+ */
 void parseInput(int argc, char **argv) {
 	if (argc == 2) {
 	}
