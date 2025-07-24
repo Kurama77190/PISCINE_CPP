@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/23 20:32:48 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:32:18 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,48 +59,81 @@ void PmergeMe::sort(std::vector<unsigned int>& arr) {
 	if (arr.size() < 2)
 		return;
 
-	// Initialize main chain and pend
-	std::vector<unsigned int> mainChain;
-	std::vector<unsigned int> pend;
-	unsigned int straggler = arr.size() % 2;
-	unsigned int last = 0;
+	// -------------------------------------
+	// Step 0 : Détection du straggler (optionnel)
+	// -------------------------------------
+	
+	unsigned int stragglerExists = arr.size() % 2;
+	unsigned int straggler = 0;
 	unsigned int end = arr.size();
 
-	
-	// step-0 If the size is odd, we take the last element as a straggler
-	if (straggler) {
-		last = arr.back();
+	if (stragglerExists) {
+		straggler = arr.back();
 		arr.pop_back();
 		end--;
 	}
 
-	// step-1 Pair elements and create the main chain and pend
+	// -------------------------------------
+	// Step 1 : Création des paires (min, max)
+	// -------------------------------------
+	
+	std::deque<std::pair<unsigned int, unsigned int> > pairs;
 	for (unsigned int i = 0; i < end; i += 2) {
 		unsigned int a = arr[i];
 		unsigned int b = arr[i + 1];
-		mainChain.push_back(std::max(a, b));
-		pend.push_back(std::min(a, b));
+		pairs.push_back(std::make_pair(std::min(a, b), std::max(a, b)));
 	}
+	
+	// -------------------------------------
+	// Step 2 : Extraction des "max" → mainChain
+	// -------------------------------------
+	
+	std::vector<unsigned int> mainChain;
+	for (unsigned int i = 0; i < pairs.size(); ++i)
+		mainChain.push_back(pairs[i].second);
 
-	// step-2 Recursively sort the main chain
+	// -------------------------------------
+	// Step 3 : Tri récursif de la mainChain
+	// (ne modifie pas les paires originales)
+	// -------------------------------------
+	
 	sort(mainChain);
 
-	// step-2bis If there was a straggler, add it to pend
-	if (straggler)
-		pend.push_back(last);
+	// -------------------------------------
+	// Step 4 : Ajouter le straggler dans pend si présent (optionnel)
+	// -------------------------------------
+	
+	std::vector<unsigned int> pend;
+	for (unsigned int i = 0; i < pairs.size(); ++i)
+		pend.push_back(pairs[i].first);
+	if (stragglerExists)
+		pend.push_back(straggler);
 
-
-	// step-3 Use Jacobsthal indexes to insert elements from pend into mainChain
+	// -------------------------------------
+	// Step 5 : Génération des indices Jacobsthal
+	// -------------------------------------
+	
 	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
+
+	// -------------------------------------
+	// Step 6 : Insertion des pend dans la mainChain
+	// -------------------------------------
+	
 	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
 		unsigned int idx = jacobIndexes[i];
-		if (idx >= static_cast<unsigned int>(pend.size())) continue;
+		if (idx >= pend.size()) continue;
+
 		std::vector<unsigned int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pend[idx]);
 		mainChain.insert(pos, pend[idx]);
 	}
 
+	// -------------------------------------
+	// Step 7 : Mise à jour du tableau d'origine
+	// -------------------------------------
+	
 	arr = mainChain;
 }
+
 
 // ------------------------------- DEQUE ------------------------------------ //
 
@@ -108,46 +141,80 @@ void PmergeMe::sort(std::deque<unsigned int>& arr) {
 	if (arr.size() < 2)
 		return;
 
-	// Initialize main chain and pend
-	std::deque<unsigned int> mainChain;
-	std::deque<unsigned int> pend;
-	unsigned int straggler = arr.size() % 2;
-	unsigned int last = 0;
+	// -------------------------------------
+	// Step 0 : Détection du straggler
+	// -------------------------------------
+	
+	unsigned int stragglerExists = arr.size() % 2;
+	unsigned int straggler = 0;
 	unsigned int end = arr.size();
 
-	// step-0 If the size is odd, we take the last element as a straggler
-	if (straggler) {
-		last = arr.back();
+	if (stragglerExists) {
+		straggler = arr.back();
 		arr.pop_back();
 		end--;
 	}
 
-	// step-1 Pair elements and create the main chain and pend
+	// -------------------------------------
+	// Step 1 : Création des paires (min, max)
+	// -------------------------------------
+	
+	std::deque<std::pair<unsigned int, unsigned int> > pairs;
 	for (unsigned int i = 0; i < end; i += 2) {
 		unsigned int a = arr[i];
 		unsigned int b = arr[i + 1];
-		mainChain.push_back(std::max(a, b));
-		pend.push_back(std::min(a, b));
+		pairs.push_back(std::make_pair(std::min(a, b), std::max(a, b)));
 	}
 
-	// step-2 Recursively sort the main chain
+	// -------------------------------------
+	// Step 2 : Extraction des "max" → mainChain
+	// -------------------------------------
+	
+	std::deque<unsigned int> mainChain;
+	for (unsigned int i = 0; i < pairs.size(); ++i)
+		mainChain.push_back(pairs[i].second);
+
+	// -------------------------------------
+	// Step 3 : Tri récursif de la mainChain
+	// (ne modifie pas les paires originales)
+	// -------------------------------------
+	
 	sort(mainChain);
 
-	// step-2bis If there was a straggler, add it to pend
-	if (straggler)
-		pend.push_back(last);
+	// -------------------------------------
+	// Step 4 : Ajouter le straggler dans pend si présent
+	// -------------------------------------
+	
+	std::deque<unsigned int> pend;
+	for (unsigned int i = 0; i < pairs.size(); ++i)
+		pend.push_back(pairs[i].first);
+	if (stragglerExists)
+		pend.push_back(straggler);
 
-	// step-3 Use Jacobsthal indexes to insert elements from pend into mainChain
+	// -------------------------------------
+	// Step 5 : Génération des indices Jacobsthal
+	// -------------------------------------
+	
 	std::vector<unsigned int> jacobIndexes = getJacobsthalIndexes(pend.size());
+
+	// -------------------------------------
+	// Step 6 : Insertion des pend dans la mainChain
+	// -------------------------------------
+	
 	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
 		unsigned int idx = jacobIndexes[i];
-		if (idx >= static_cast<unsigned int>(pend.size())) continue;
+
 		std::deque<unsigned int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pend[idx]);
 		mainChain.insert(pos, pend[idx]);
 	}
 
+	// -------------------------------------
+	// Step 7 : Mise à jour du tableau d'origine
+	// -------------------------------------
+	
 	arr = mainChain;
 }
+
 
 // ------------------------------- TOOLS ------------------------------------ //
 
