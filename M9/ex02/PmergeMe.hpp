@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:03:58 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/24 12:12:42 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:28:04 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void process();
 private:
 
 double _time;
-clock_t _start;
-clock_t _end;
+std::clock_t _start;
+std::clock_t _end;
 
 std::vector<unsigned int> _vec;
 std::deque<unsigned int>  _deq;

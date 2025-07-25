@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:15:23 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/07/24 16:48:40 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:31:39 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ PmergeMe::PmergeMe(const std::vector<unsigned int>& vec, const std::deque<unsign
 	process();
 }
 
-// ----------------------------- FONCTION PRINCIPALE ------------------------ //
+// ----------------------------- PROCESS FUNCTION WITH CLOCK AND DISPLAY ------------------------ //
 
 void PmergeMe::process() {
 	std::cout << "Before: ";
@@ -116,7 +116,6 @@ void PmergeMe::sort(std::vector<unsigned int>& arr) {
 	// ------------------------------------	
 	for (size_t i = 0; i < jacobIndexes.size(); ++i) {
 		unsigned int idx = jacobIndexes[i];
-		if (idx >= pend.size()) continue;
 
 		std::vector<unsigned int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pend[idx]);
 		mainChain.insert(pos, pend[idx]);
