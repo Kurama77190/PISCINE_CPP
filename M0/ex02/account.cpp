@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:28:36 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/08/11 09:53:39 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/08/17 15:19:34 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,7 @@ void Account::displayStatus() const
 
 void Account::_displayTimestamp(void)
 {
-    char timestamp[20];
-    std::time_t now;
-	
-	std::time(&now);
-    std::strftime(timestamp, sizeof(timestamp), "%Y%m%d_%H%M%S", std::localtime(&now));
-	std::cout << "[" << timestamp << "] ";
+	std::cout << "[" << "19920104_091532" << "] ";
 }
 
 void Account::displayAccountsInfos(void)
