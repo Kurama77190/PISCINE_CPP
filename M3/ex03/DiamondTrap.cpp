@@ -9,14 +9,11 @@ DiamondTrap::DiamondTrap(const std::string& name)
   ScavTrap(name + "_clap_name"),    // construit le ClapTrap côté Scav
   _name(name)
 {
-    // Fix des stats selon le sujet :
-    // HP  et AD  viennent de FragTrap
-    // EP  vient de ScavTrap
-    FragTrap::_hitPoints    = 100;              // ou FragTrap::_hitPoints (déjà 100)
-    ScavTrap::_energyPoints = 50;               // ou ScavTrap::_energyPoints (déjà 50)
-    FragTrap::_attackDamage = 30;               // ou FragTrap::_attackDamage (déjà 30)
+    _hitPoints = 100; // Valeur
+    _energyPoints = 50; // 50
+    _attackDamage = 30; // 30
 
-    std::cout << "DiamondTrap " << _name << " created.\n";
+    std::cout << "DiamondTrap " << _name << " created." << std::endl;
 }
 
 
@@ -27,15 +24,14 @@ DiamondTrap::DiamondTrap(const DiamondTrap& other)
 
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
 	if (this != &other) {
-		FragTrap::operator=(other);
-		ScavTrap::operator=(other);
+		ClapTrap::operator=(other);
 		_name = other._name;
 	}
 	return *this;
 }
 
 void DiamondTrap::attack(const std::string& target) {
-    std::cout << "DiamondTrap " << _name << " attacks " << target << "!" << std::endl;
+    ScavTrap::attack(target); // Utilise l'attaque de ScavTrap
 }
 
 DiamondTrap::~DiamondTrap() {
@@ -46,3 +42,9 @@ void DiamondTrap::whoAmI() {
     std::cout << "I am " << _name << ", and my ClapTrap name is " << FragTrap::getName() << "." << std::endl;
 }
 
+/*    ClapTrap
+      /     \
+ ScavTrap   FragTrap
+      \     /
+     DiamondTrap
+*/

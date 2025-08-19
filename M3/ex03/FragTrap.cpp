@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:07:30 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/26 02:46:00 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:27:36 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ FragTrap::FragTrap( void ): ClapTrap()
 	this->_name = "samy";
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
-	this->_attackDamage = 20;
+	this->_attackDamage = 30;
 }
 FragTrap::FragTrap( std::string name ): ClapTrap(name)
 {

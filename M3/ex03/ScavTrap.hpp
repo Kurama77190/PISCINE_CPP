@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:01:59 by sben-tay          #+#    #+#             */
-/*   Updated: 2025/02/26 02:15:29 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:00:53 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "ClapTrap.hpp"
 
 
-class ScavTrap: public ClapTrap {
+class ScavTrap: public virtual ClapTrap {
 
 public :
 
